@@ -49,6 +49,24 @@ body {
     padding: 10px;
 }
 
+/* Línea animada desde el centro */
+/* ==== Línea animada del navbar (al cargar la página) ==== */
+.navbar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #858585;
+  transform: translateX(-50%);
+  transition: width 1.2s ease;
+}
+
+/* Cuando se active la clase 'animar-linea' desde JS */
+.navbar.animar-linea::after {
+  width: 95%;
+}
 .navbar .logo {
     font-size: 25px;
     font-weight: 800;
@@ -105,55 +123,61 @@ body {
     color: #fff;
 }
 
-hr {
-    width: 96%;
-    margin: auto;
-}
 
+/* ===========================
+   HERO SECTION
+=========================== */
 #hero {
-    /* Ajuste de padding para centrar verticalmente sin depender del valor fijo */
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* Altura completa de la vista */
-    padding-top: 100px; /* Espacio para el navbar fijo */
-    text-align: center;
-    position: relative;
+    min-height: 100vh;
+    background-color: var(--color-bg);
     overflow: hidden;
-}
-
-h1 {
     text-align: center;
-    color: var(--color-accent);
-    font-weight: 900; /* Más impactante */
-    font-size: 7vw; /* Valor responsivo para pantallas grandes */
-    line-height: 0.9;
-    text-transform: uppercase;
-    z-index: 3;
 }
 
-/* La imagen debe estar centrada y posicionada relativamente */
+/* Imagen centrada en medio */
 #hero img {
-    /* Ajustes críticos para el posicionamiento responsivo */
-    position: absolute;
-    bottom: 0;
-    left: 50%; /* Centra horizontalmente */
-    transform: translateX(-50%); /* Ajuste para la traducción al 50% de su propio ancho */
-    
-    height: 80vh; 
-    max-width: 90%; /* Máximo ancho de la imagen */
-    z-index: 1; 
-    
-    /* El efecto de desvanecimiento es correcto, lo mantendremos: */
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+    position: relative;
+    z-index: 2; /* En medio entre los textos */
+    height: 80vh;
+    max-width: 90%;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+    margin-top: 150px;
 }
 
+/* Textos generales */
+#hero h1 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 7vw;
+    line-height: 1;
+    color: var(--color-accent);
+    transition: all 0.3s ease;
+}
+
+/* Nombre debajo de la imagen */
+#hero .nombre {
+    z-index: 1;
+    top: 40%; /* Ajusta según la imagen */
+}
+
+/* "Desarrollador Web" encima */
+#hero .titulo-encima {
+    z-index: 3;
+    bottom: 30%;
+}
+
+/* Texto transparente con borde */
 #hero .transparente {
     color: transparent;
-    -webkit-text-stroke: 1px var(--color-text); /* Cambié a variable para mejor gestión */
-    /* text-stroke: 1px var(--color-text); */ /* Desactivado por ser menos compatible */
+    -webkit-text-stroke: 1px var(--color-accent);
 }
 /* 6.Responsive Tablet */
 @media screen and (min-width:768px) and (max-width:1080px) {}
