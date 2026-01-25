@@ -1,56 +1,51 @@
-/* 1.Tipografias */
+/* =========================================================
+   1. TIPOGRAFÍAS
+========================================================= */
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
-/* 2.Iconos */
+/* =========================================================
+   2. ICONOS
+========================================================= */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css');
 
-/* 3.Estilos Generales */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: "Inter", sans-serif;
+/* =========================================================
+   3. ESTILOS GENERALES
+========================================================= */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", sans-serif;
 }
 
-p,
-a,
-button,
-li,
-label,
-input,
-select,
-textarea,
-span {
-    font-family: "IBM Plex Sans", sans-serif;
+p, a, button, li, label, input, select, textarea, span {
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
-/* 4.Variables */
+/* =========================================================
+   4. VARIABLES
+========================================================= */
 :root {
-    --color-bg: #0f0f0f;
-    --color-text: #fff;
-    --color-accent: #b10f2e;
+  --color-bg: #0f0f0f;
+  --color-text: #fff;
+  --color-accent: #b10f2e;
 }
 
-/* 5.Desktop */
+/* =========================================================
+   5. GENERAL / NAVBAR
+========================================================= */
 body {
-    background: var(--color-bg);
-    color: var(--color-text);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
-.bg-negro {
-    background: var(--color-bg);
-}
+.bg-negro { background: var(--color-bg); }
 
 .navbar {
-    padding: 10px;
+  padding: 10px;
+  position: relative;
 }
 
-/* Línea animada desde el centro */
-/* ==== Línea animada del navbar (al cargar la página) ==== */
+/* Línea animada del navbar (desde el centro) */
 .navbar::after {
   content: "";
   position: absolute;
@@ -62,125 +57,254 @@ body {
   transform: translateX(-50%);
   transition: width 1.2s ease;
 }
-
-/* Cuando se active la clase 'animar-linea' desde JS */
 .navbar.animar-linea::after {
   width: 95%;
 }
+
+/* Logo */
 .navbar .logo {
-    font-size: 25px;
-    font-weight: 800;
-    transition: .5s;
+  font-size: 25px;
+  font-weight: 800;
+  transition: 0.5s;
 }
+.navbar .logo:hover { transform: scale(1.1); }
 
-.navbar .logo:hover {
-    transform: scale(1.1);
-}
+.miguel { color: var(--color-accent); }
+.menor, .mayor, .lozano { color: rgba(177, 15, 46, 0.5); }
 
-.miguel {
-    color: var(--color-accent);
-}
-
-.menor,
-.mayor {
-    color: rgba(177, 15, 46, 0.5);
-}
-
-.lozano {
-    color: rgba(177, 15, 46, 0.5);
-}
-
+/* Links */
 .navbar #navbarNav .nav-item a {
-    color: var(--color-text);
-    font-size: 20px;
-    margin-right: 10px;
-    border-bottom: 1px solid transparent;
-    transition: .5s;
+  color: var(--color-text);
+  font-size: 20px;
+  margin-right: 10px;
+  border-bottom: 1px solid transparent;
+  transition: 0.5s;
 }
-
 .navbar #navbarNav .nav-item a:hover {
-    color: #b10f2e;
-    border-bottom: 1px solid #b10f2e;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus,
-.navbar-nav .nav-link:active {
-    color: #c7002f;
+  color: var(--color-accent);
+  border-bottom: 1px solid var(--color-accent);
 }
 
 .btnDescargar {
-    text-decoration: none;
-    background: var(--color-accent);
-    border-radius: 0 10px 0 10px;
-    color: #0f0f0f;
-    padding: 8px;
-    justify-content: end;
-    font-size: 18px;
+  text-decoration: none; /* El !important fuerza que se quite la línea */
+  background: var(--color-accent);
+  border-radius: 4px; /* Un poco más cuadrado como Figma */
+  color: #fff !important;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 0 10px 0 10px;
 }
 
 .btnDescargar:hover {
-    color: #fff;
+  background: #900b25; /* Un rojo un poco más oscuro al pasar el mouse */
+  color: #000 !important;
+  transform: translateY(-2px);
 }
 
-
-/* ===========================
-   HERO SECTION
-=========================== */
+/* =========================================================
+   6. HERO SECTION
+========================================================= */
+/* =========================================================
+   6. HERO SECTION (ADAPTABLE SIN TOCAR HTML)
+========================================================= */
 #hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: var(--color-bg);
-    overflow: hidden;
-    text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  overflow: hidden;
+  padding-top: 60px; /* Compensa el navbar fijo */
 }
 
-/* Imagen centrada en medio */
+/* IMAGEN (El ancla visual) */
 #hero img {
-    position: relative;
-    z-index: 2; /* En medio entre los textos */
-    height: 80vh;
-    max-width: 90%;
-    object-fit: contain;
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
-    margin-top: 150px;
+  position: relative;
+  z-index: 2;
+  height: auto;
+  /* Altura dinámica: Nunca más alta que el 85% de la pantalla */
+  max-height: 85vh; 
+  width: auto;
+  max-width: 90%;
+  object-fit: contain;
+  /* Sombra suave para separar del fondo */
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
 }
 
-/* Textos generales */
+/* ESTILOS COMUNES PARA AMBOS TÍTULOS */
 #hero h1 {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    font-weight: 900;
-    text-transform: uppercase;
-    font-size: 7vw;
-    line-height: 1;
-    color: var(--color-accent);
-    transition: all 0.3s ease;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  
+  /* CLAMP: El texto crece/encoge suavemente entre 3rem y 9rem */
+  font-size: clamp(3rem, 8vw, 9rem); 
+  
+  /* Junta las líneas verticalmente para que se vea compacto */
+  line-height: 0.9; 
+  color: var(--color-accent);
 }
 
-/* Nombre debajo de la imagen */
-#hero .nombre {
-    z-index: 1;
-    top: 40%; /* Ajusta según la imagen */
+/* TÍTULO DE ATRÁS ("MIGUEL LOZANO") */
+#hero .nombre { 
+  z-index: 1; 
+  /* Lo ponemos en el centro exacto */
+  top: 50%; 
+  /* Lo empujamos hacia ARRIBA un 130% de su propio tamaño */
+  transform: translateY(-130%); 
 }
 
-/* "Desarrollador Web" encima */
-#hero .titulo-encima {
-    z-index: 3;
-    bottom: 30%;
+/* TÍTULO DE ADELANTE ("DESARROLLADOR WEB") */
+#hero .titulo-encima { 
+  z-index: 3; 
+  /* Lo ponemos en el centro exacto */
+  top: 50%; 
+  /* Lo empujamos hacia ABAJO un 40% de su propio tamaño */
+  transform: translateY(40%); 
+  pointer-events: none; /* Permite clicks a través del texto */
 }
 
-/* Texto transparente con borde */
+/* TEXTO TRANSPARENTE CON BORDE */
 #hero .transparente {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-accent);
+  color: transparent;
+  /* Borde blanco semitransparente (estilo Figma) */
+  -webkit-text-stroke: 1px rgba(177, 15, 46, 1);
 }
-/* 6.Responsive Tablet */
-@media screen and (min-width:768px) and (max-width:1080px) {}
 
-/* 7.Responsive Smartphone */
+/* =========================================================
+   7. SECCIÓN "SOBRE MÍ"
+========================================================= */
+#sobre-mi {
+  padding: 140px 0;
+  position: relative;
+}
+
+#sobre-mi h4 {
+  font-weight: 300;
+  color: #a0a0a0;
+}
+
+#sobre-mi h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+#sobre-mi .nombre-rojo { color: var(--color-accent); }
+
+#sobre-mi p {
+  padding: 10px 0;
+  font-size: 20px;
+  font-weight: 300;
+}
+#sobre-mi .logica-p { color: var(--color-accent); }
+
+/* =========================================================
+   8. REDES SOCIALES
+========================================================= */
+.redes-sociales-container .btn-redes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  padding: 2px;
+  background: var(--color-text);
+  text-decoration: none;
+  color: var(--color-bg);
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+.redes-sociales-container .btn-redes:hover {
+  background: var(--color-accent);
+  color: var(--color-text);
+}
+.redes-sociales-container .btn-redes i {
+  color: var(--color-accent);
+  margin-right: 5px;
+  font-size: 25px;
+  transition: color 0.3s;
+}
+.redes-sociales-container .btn-redes:hover i { color: var(--color-text); }
+
+/* =========================================================
+   9. IMAGEN Y FIGURAS DECORATIVAS
+========================================================= */
+.img-container-sobremi {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  margin: auto;
+}
+
+.img-container-sobremi img {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+
+/* Cuadros flotantes animados */
+.figura-cuadro {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--color-accent);
+  border-radius: 10px;
+  opacity: 0.3;
+  z-index: 1;
+  transform: rotate(45deg);
+  animation: flotar 10s ease-in-out infinite alternate, glow 4s ease-in-out infinite alternate;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Posiciones */
+.figura-cuadro.uno    { top: -40px; left: -50px; animation-delay: 0s; }
+.figura-cuadro.dos    { top: 10%; right: -70px; animation-delay: 1s; }
+.figura-cuadro.tres   { bottom: -50px; left: -30px; animation-delay: 2s; }
+.figura-cuadro.cuatro { bottom: 20%; right: -60px; animation-delay: 3s; }
+.figura-cuadro.cinco  { top: -60px; right: 20%; animation-delay: 4s; }
+.figura-cuadro.seis   { bottom: -70px; left: 40%; animation-delay: 5s; }
+.figura-cuadro.siete  { top: 30%; left: -80px; animation-delay: 2.5s; }
+
+/* Animaciones */
+@keyframes flotar {
+  0%   { transform: rotate(45deg) translate(0, 0) scale(1); }
+  20%  { transform: rotate(70deg) translate(20px, -30px) scale(1.05); }
+  40%  { transform: rotate(110deg) translate(-25px, -10px) scale(1.1); }
+  60%  { transform: rotate(150deg) translate(30px, 40px) scale(1.05); }
+  80%  { transform: rotate(190deg) translate(-30px, 20px) scale(1.1); }
+  100% { transform: rotate(230deg) translate(0, 0) scale(1); }
+}
+@keyframes glow {
+  0% { box-shadow: 0 0 10px rgba(177, 15, 46, 0.2); }
+  100% { box-shadow: 0 0 25px rgba(177, 15, 46, 0.5); }
+}
+
+/* Hover interactivo */
+.figura-cuadro:hover {
+  transform: rotate(90deg) translateY(-15px) scale(1.2);
+  opacity: 0.8;
+  animation-play-state: paused;
+}
+
+/* =========================================================
+   10. RESPONSIVE
+========================================================= */
+@media screen and (min-width:768px) and (max-width:1080px) {}
 @media screen and (min-width:320px) and (max-width:767px) {}
