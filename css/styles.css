@@ -182,127 +182,337 @@ body {
 /* =========================================================
    7. SECCIÓN "SOBRE MÍ"
 ========================================================= */
+/* =========================================================
+   7. SECCIÓN "SOBRE MÍ"
+========================================================= */
 #sobre-mi {
-  padding: 140px 0;
+  padding: 100px 0;
   position: relative;
+  /* Aseguramos que el fondo sea negro sólido para que resalte el texto */
+  background-color: var(--color-bg); 
 }
 
+/* TÍTULOS */
 #sobre-mi h4 {
-  font-weight: 300;
-  color: #a0a0a0;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #858585; /* Gris suave como en Figma */
+  margin-bottom: 5px;
 }
 
 #sobre-mi h3 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  font-weight: 800; /* Letra bien gruesa */
+  color: #fff;
+  margin-bottom: 20px;
 }
 
-#sobre-mi .nombre-rojo { color: var(--color-accent); }
+#sobre-mi .nombre-rojo { 
+  color: var(--color-accent); 
+}
 
+/* PÁRRAFO */
 #sobre-mi p {
-  padding: 10px 0;
-  font-size: 20px;
+  font-size: 1.1rem;
   font-weight: 300;
+  line-height: 1.6; /* Más espacio entre líneas para leer mejor */
+  color: #d1d1d1; /* Blanco no tan brillante para no cansar la vista */
+  max-width: 90%; /* Evita que el texto se estire demasiado */
 }
-#sobre-mi .logica-p { color: var(--color-accent); }
+
+/* La palabra <lógica> en rojo */
+#sobre-mi .logica-p { 
+  color: var(--color-accent);
+  font-family: "Source Code Pro", monospace; /* Opcional: fuente tipo código si te gusta */
+  font-weight: 600;
+}
 
 /* =========================================================
-   8. REDES SOCIALES
+   8. REDES SOCIALES (Estilo Figma)
 ========================================================= */
+.redes-sociales-container .list-unstyled {
+    margin-top: 30px;
+}
+
 .redes-sociales-container .btn-redes {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  padding: 2px;
-  background: var(--color-text);
-  text-decoration: none;
-  color: var(--color-bg);
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: 600;
-  transition: all 0.3s;
-}
-.redes-sociales-container .btn-redes:hover {
-  background: var(--color-accent);
-  color: var(--color-text);
-}
-.redes-sociales-container .btn-redes i {
+  width: auto; /* Que se ajuste al contenido */
+  min-width: 140px; /* Ancho mínimo para que se vean iguales */
+  padding: 10px 20px;
+  
+  /* ESTILO FIGMA: Fondo Blanco, Texto Rojo */
+  background: #fff; 
   color: var(--color-accent);
-  margin-right: 5px;
-  font-size: 25px;
+  
+  text-decoration: none;
+  border-radius: 4px; /* Bordes apenas redondeados */
+  font-size: 16px;
+  font-weight: 700; /* Texto negrita */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.redes-sociales-container .btn-redes i {
+  color: var(--color-accent); /* Icono rojo */
+  margin-right: 8px;
+  font-size: 1.2rem;
   transition: color 0.3s;
 }
-.redes-sociales-container .btn-redes:hover i { color: var(--color-text); }
+
+/* HOVER: Se invierten los colores (Rojo fondo, blanco texto) */
+.redes-sociales-container .btn-redes:hover {
+  background: var(--color-accent);
+  color: #fff;
+  transform: translateY(-3px); /* Pequeño salto hacia arriba */
+}
+.redes-sociales-container .btn-redes:hover i {
+  color: #fff;
+}
 
 /* =========================================================
-   9. IMAGEN Y FIGURAS DECORATIVAS
+   9. IMAGEN Y DECORACIÓN "SOBRE MÍ" (Corregido)
 ========================================================= */
 .img-container-sobremi {
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
-  max-width: 380px;
+  max-width: 450px;
   margin: auto;
+  /* Añadimos un padding para que el patrón de fondo respire */
+  padding: 20px; 
 }
 
-.img-container-sobremi img {
+/* LA FOTO PRINCIPAL */
+.img-container-sobremi img.foto-flotante {
   position: relative;
   z-index: 5;
   width: 100%;
   height: auto;
-  border-radius: 20px;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
+  /* AQUI ESTÁ LA MAGIA: Animación suave de flotación */
+  animation: flotarSuave 4s ease-in-out infinite alternate;
 }
 
-/* Cuadros flotantes animados */
-.figura-cuadro {
+/* EL NUEVO FONDO DE PATRÓN (Usando imagen PNG) */
+.img-container-sobremi::before {
+  content: "";
   position: absolute;
-  width: 80px;
-  height: 80px;
-  border: 2px solid var(--color-accent);
-  border-radius: 10px;
-  opacity: 0.3;
-  z-index: 1;
-  transform: rotate(45deg);
-  animation: flotar 10s ease-in-out infinite alternate, glow 4s ease-in-out infinite alternate;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  top: 0; 
+  right: 0;
+  width: 45%;  /* Ocupa el 60% del ancho del contenedor */
+  height: 45%; /* Ocupa el 80% del alto */
+  z-index: 1; /* Detrás de la foto */
+  opacity: 0.6; /* Ajusta esto si el patrón se ve muy fuerte o muy suave */
+  
+  /* Reemplaza esto con la ruta a tu imagen exportada de Figma */
+  background-image: url('../img/fondo-patron.png'); 
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: contain;
 }
 
-/* Posiciones */
-.figura-cuadro.uno    { top: -40px; left: -50px; animation-delay: 0s; }
-.figura-cuadro.dos    { top: 10%; right: -70px; animation-delay: 1s; }
-.figura-cuadro.tres   { bottom: -50px; left: -30px; animation-delay: 2s; }
-.figura-cuadro.cuatro { bottom: 20%; right: -60px; animation-delay: 3s; }
-.figura-cuadro.cinco  { top: -60px; right: 20%; animation-delay: 4s; }
-.figura-cuadro.seis   { bottom: -70px; left: 40%; animation-delay: 5s; }
-.figura-cuadro.siete  { top: 30%; left: -80px; animation-delay: 2.5s; }
 
-/* Animaciones */
-@keyframes flotar {
-  0%   { transform: rotate(45deg) translate(0, 0) scale(1); }
-  20%  { transform: rotate(70deg) translate(20px, -30px) scale(1.05); }
-  40%  { transform: rotate(110deg) translate(-25px, -10px) scale(1.1); }
-  60%  { transform: rotate(150deg) translate(30px, 40px) scale(1.05); }
-  80%  { transform: rotate(190deg) translate(-30px, 20px) scale(1.1); }
-  100% { transform: rotate(230deg) translate(0, 0) scale(1); }
-}
-@keyframes glow {
-  0% { box-shadow: 0 0 10px rgba(177, 15, 46, 0.2); }
-  100% { box-shadow: 0 0 25px rgba(177, 15, 46, 0.5); }
+/* Borramos las clases viejas de los cuadros animados para limpiar código */
+.figura-cuadro, .figura-cuadro:hover { display: none; }
+
+
+/* =========================================================
+   11. ANIMACIONES PERSONALIZADAS
+========================================================= */
+/* Animación para que tu foto respire/flote suavemente */
+@keyframes flotarSuave {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px); /* Se mueve 15px hacia arriba y vuelve */
+  }
 }
 
-/* Hover interactivo */
-.figura-cuadro:hover {
-  transform: rotate(90deg) translateY(-15px) scale(1.2);
-  opacity: 0.8;
-  animation-play-state: paused;
+/* =========================================================
+   SECCIÓN PERFIL PROFESIONAL
+========================================================= */
+#perfil-profesional {
+    position: relative;
+    padding: 150px 0 100px 0; /* Espacio arriba y abajo */
+    width: 100%;
+    overflow: hidden; /* Evita que la imagen de fondo cause scroll horizontal */
 }
 
+/* IMAGEN DE FONDO (Tu Frame 5.png) */
+/* Reemplaza esto en tu CSS */
+.fondo-perfil {
+    position: absolute; /* Saca la imagen del flujo normal */
+    top: -160px;
+    left: -50px;
+    width: 100%;  /* Ancho total */
+    height: 100%; /* Alto total de la sección */
+    z-index: -1; /* La manda atrás del texto y las tarjetas */
+}
+
+.fondo-perfil img{
+  border-radius: 0 0 20px 20px;
+}
+
+
+/* Ajuste para que el título respire y no toque el borde izquierdo */
+.cabecera-perfil {
+    padding-left: 5%; /* Un empujoncito hacia la derecha */
+    padding-right: 5%;
+}
+
+/* TEXTOS DE CABECERA */
+.titulo-seccion {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Tamaño responsive */
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-align: center; /* En celular se centra */
+    margin-left: 10px;
+}
+
+@media (min-width: 992px) {
+    .titulo-seccion { text-align: left; } /* En PC a la izquierda */
+}
+
+.descripcion {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: #ddd;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* BOTÓN CONTACTO */
+.btn-contacto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 30px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(177, 15, 46, 0.4);
+}
+.btn-contacto:hover {
+    background: #fff; /* Fondo blanco */
+    color: var(--color-accent); /* Texto rojo */
+    transform: translateY(-3px);
+}
+.btn-contacto i { margin-left: 10px; }
+
+/* --- ESTILOS DE LAS TARJETAS --- */
+.habilidades-tarjeta {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    height: 320px; /* Altura fija para todas */
+    background: #050505; /* Negro casi puro */
+    border: 1px solid #222;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición suave */
+    box-shadow: 0 0 20px rgba(0,0,0,0.5); /* Sombra negra base */
+    cursor: pointer;
+}
+
+.habilidades-tarjeta .card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrado vertical por defecto */
+    padding: 20px;
+}
+
+/* TÍTULO (Estado normal) */
+.habilidades-tarjeta .card-title {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    margin: 0;
+    transition: all 0.4s ease;
+}
+
+/* ELEMENTOS OCULTOS POR DEFECTO */
+.habilidades-tarjeta .icono,
+.habilidades-tarjeta .detalles {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* --- ESTADO ACTIVO (HOVER) --- */
+.habilidades-tarjeta:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 30px rgba(177, 15, 46, 0.5); /* Glow rojo intenso */
+    transform: translateY(-10px);
+}
+
+/* Mover el título y achicarlo */
+.habilidades-tarjeta:hover .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Mostrar Icono */
+.habilidades-tarjeta:hover .icono {
+    height: auto;
+    opacity: 1;
+    font-size: 3rem;
+    color: var(--color-accent);
+    margin-bottom: 10px;
+    animation: slideUp 0.3s ease forwards;
+}
+
+/* Mostrar Lista */
+.habilidades-tarjeta:hover .detalles {
+    height: auto;
+    opacity: 1;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+
+.habilidades-tarjeta .detalles li {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+}
+.habilidades-tarjeta .detalles li::before {
+    content: "•";
+    color: var(--color-accent);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Animación de entrada suave para los elementos internos */
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */
