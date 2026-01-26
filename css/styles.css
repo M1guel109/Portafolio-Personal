@@ -513,6 +513,161 @@ body {
     from { transform: translateY(20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+/* =========================================================
+   SECCIÓN HABILIDADES (ADAPTADO AL NUEVO HTML)
+========================================================= */
+
+/* 1. CONFIGURACIÓN DE LA SECCIÓN */
+#habilidades {
+    width: 100%;
+    padding: 50px 0;
+    background-color: var(--color-bg); /* Asegura que el fondo sea el correcto */
+}
+
+/* 2. TIPOGRAFÍA (Títulos y Descripción) */
+.titulo-seccion-centro {
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+    color: #fff; /* Aseguramos color blanco */
+    margin-bottom: 20px;
+}
+
+.descripcion-centro {
+    /* Ajusté el padding a porcentaje para que no rompa en celulares, 
+       pero mantiene el estilo centrado y grande que te gusta */
+    padding: 0 10%; 
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 60px;
+    color: #fff;
+}
+
+/* 3. CONTENEDOR DE BOTONES (Izquierda) */
+/* Ahora usamos flex-wrap porque todos los botones están en un solo div */
+/* --- 3. CONTENEDOR DE BOTONES (Izquierda) --- */
+.etiquetas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end; /* Alineados a la derecha */
+    gap: 12px;
+    max-width: 600px;
+    margin-left: auto;
+}
+
+/* ESTILO BASE DEL BOTÓN */
+.etiquetas-container button {
+    border-radius: 8px;
+    padding: 10px 35px;
+    font-weight: 700;
+    font-size: 18px;
+    background-color: var(--color-accent);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    
+    /* IMPORTANTE: Solo opacity 0 aquí. NO pongas 'animation' aquí */
+    opacity: 0; 
+}
+
+/* CLASE PARA LA ANIMACIÓN (El JS agregará esta clase) */
+.etiquetas-container button.animar {
+    animation: caerDesdeIzquierda 0.5s ease-out forwards;
+}
+
+/* HOVER */
+.etiquetas-container button:hover {
+    background-color: #900b25;
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* KEYFRAMES */
+@keyframes caerDesdeIzquierda {
+    0% {
+        opacity: 0;
+        transform: translateX(-150px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 4. ANIMACIÓN (Idéntica a tu ejemplo) */
+/* Clase que agrega el JS para animar */
+.etiquetas-container button.animar {
+    animation: caerDesdeIzquierda 1s ease-out forwards;
+}
+
+@keyframes caerDesdeIzquierda {
+    0% {
+        opacity: 0;
+        transform: translateX(-150px) rotate(0);
+    }
+    80% {
+        transform: translateX(10px) rotate(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0);
+    }
+}
+
+/* 5. BARRAS DE PROGRESO (Derecha) */
+.barras-container {
+    width: 100%;
+}
+
+/* Estilo para cada item de habilidad (div generado por JS) */
+.barras-container .skill-item { 
+    margin-bottom: 20px;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between; /* Esto empuja uno a cada extremo */
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Título de la barra (HTML, CSS, etc) */
+.barras-container h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #fff;
+    /* Para que el porcentaje quede a la derecha si lo agregas en el HTML */
+    display: flex; 
+    justify-content: space-between; 
+}
+
+/* Fondo de la barra */
+.progress {
+    background-color: #222;
+    border-radius: 8px;
+    height: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Barra de color que se llena */
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background: var(--color-accent); /* Tu rojo */
+    position: relative;
+    transition: width 1.5s ease-in-out;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    border-radius: 5px;
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */
