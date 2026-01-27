@@ -668,6 +668,257 @@ body {
     padding-right: 10px;
     border-radius: 5px;
 }
+
+
+#portafolio {
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#portafolio h2 {
+    text-align: center;
+    font-weight: 700;
+    padding-bottom: 70px;
+}
+
+.proyecto {
+    position: relative;
+    background: #af0e2c80;
+    margin: 1px 0;
+    padding: 2rem;
+    transition: all 0.5s ease;
+    /* overflow: hidden; */
+    cursor: pointer;
+}
+
+.numero-fondo {
+    position: absolute;
+    top: 47%;
+    left: 250px;
+    transform: translateY(-50%) scale(0.5);
+    font-size: 15rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.15);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    white-space: nowrap;
+}
+
+.proyecto:hover .numero-fondo {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+}
+
+.proyecto.inactive:hover .numero-fondo {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+}
+
+.proyecto.active .numero-fondo {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+}
+
+
+.proyecto .info {
+    padding-left: 170px;
+}
+
+.proyecto hr {
+    position: absolute;
+    border: 1px solid #fff;
+    width: 14%;
+    top: 83px;
+    left: 0;
+}
+
+
+.proyecto .numero {
+    font-size: 2.5rem;
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.proyecto h3 {
+    margin-top: 0.5rem;
+    font-size: 2rem;
+    transition: all 0.4s ease;
+}
+
+.proyecto p {
+    opacity: 0.8;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.proyecto .link {
+    padding-right: 150px;
+}
+
+.proyecto a {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    z-index: 10;
+}
+
+.proyecto a::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -25px;
+    /* ajusta según quieras la posición */
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.proyecto:hover .link a::before {
+    opacity: 0;
+}
+
+/* Imagen escondida por defecto */
+.proyecto .preview {
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+    max-width: 100%;
+    width: 350px;
+    opacity: 0;
+    transform: rotate(-5deg) scale(0.95);
+    transition: all 0.6s ease;
+}
+
+.proyecto .preview::before {
+    content: "";
+    position: absolute;
+    top: 100px;
+    left: -40px;
+    width: 90%;
+    height: 70%;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: -10px 0 30px rgba(255, 0, 0, 0.7);
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+.proyecto .preview img {
+    width: 400px;
+    border-radius: 12px;
+}
+
+/* Overlay oscuro para que se lea el texto */
+.preview-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px;
+    color: #fff;
+}
+
+/* Textos dentro del preview */
+.preview-info h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-accent);
+}
+.preview-info span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #ccc;
+    margin-bottom: 5px;
+    display: block;
+}
+.preview-info p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 🖱️ Efecto hover */
+.proyecto:hover {
+    background: #b1122f;
+    transform: scale(1);
+    box-shadow: 0px 0px 40px -10px var(--color-bg);
+    z-index: 20;
+    /* 🔥 Importante */
+    position: relative;
+    /* Necesario para que z-index funcione */
+
+}
+
+.proyecto:hover .numero {
+    font-size: 5rem;
+    opacity: 0.2;
+}
+
+.proyecto:hover h3 {
+    font-size: 2.5rem;
+}
+
+.proyecto:hover a {
+    color: #fff;
+    background: #fff;
+    color: #000;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    z-index: 999;
+}
+
+.proyecto:hover .preview {
+    right: -1px;
+    bottom: -56px;
+    opacity: 1;
+    transform: rotate(0) scale(1);
+    z-index: 30;
+}
+
+/* --- BOTÓN VER MÁS --- */
+.btn-ver-mas-container {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.btn-ver-mas {
+    display: inline-block;
+    padding: 15px 50px;
+    border: 2px solid var(--color-accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.btn-ver-mas:hover {
+    background: var(--color-accent);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(177, 15, 46, 0.6);
+    letter-spacing: 2px; /* Efecto de expansión */
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */

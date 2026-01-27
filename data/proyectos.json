@@ -1,0 +1,34 @@
+[
+  {
+    "titulo": "Rumbo",
+    "categoria": "UX/UI Design",
+    "descripcion": "Aplicación móvil diseñada para facilitar el transporte urbano con rutas inteligentes.",
+    "tecnologias": "Figma • Prototipado",
+    "imagen": "img/foto-gym.png",
+    "link": "#"
+  },
+  {
+    "titulo": "Gym System",
+    "categoria": "Full Stack",
+    "descripcion": "Plataforma de gestión de usuarios, membresías y rutinas para gimnasios.",
+    "tecnologias": "PHP • MySQL • Bootstrap",
+    "imagen": "img/fondo-rumbo.png",
+    "link": "#"
+  },
+  {
+    "titulo": "Carway",
+    "categoria": "Frontend + API",
+    "descripcion": "Dashboard interactivo para el alquiler y rastreo de vehículos en tiempo real.",
+    "tecnologias": "React • Tailwind • API",
+    "imagen": "img/fondo-carway.png",
+    "link": "#"
+  },
+  {
+    "titulo": "Algoritmos",
+    "categoria": "Lógica",
+    "descripcion": "Colección de algoritmos complejos resueltos y optimizados para rendimiento.",
+    "tecnologias": "Python • C++ • Java",
+    "imagen": "img/fondo-algoritmos.png",
+    "link": "#"
+  }
+]

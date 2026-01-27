@@ -137,3 +137,94 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // ==========================================
+    // DATOS DE TUS PROYECTOS (TIPO JSON)
+    // ==========================================
+    const proyectos = [
+        {
+            titulo: "Rumbo",
+            categoria: "UX/UI Design",
+            descripcion: "Aplicación móvil diseñada para facilitar el transporte urbano con rutas inteligentes.",
+            tecnologias: "Figma • Prototipado",
+            imagen: "img/foto-gym.png", // Reemplaza con tus rutas reales
+            link: "#"
+        },
+        {
+            titulo: "Gym System",
+            categoria: "Full Stack",
+            descripcion: "Plataforma de gestión de usuarios, membresías y rutinas para gimnasios.",
+            tecnologias: "PHP • MySQL • Bootstrap",
+            imagen: "img/fondo-rumbo.png",
+            link: "#"
+        },
+        {
+            titulo: "Carway",
+            categoria: "Frontend + API",
+            descripcion: "Dashboard interactivo para el alquiler y rastreo de vehículos en tiempo real.",
+            tecnologias: "React • Tailwind • API",
+            imagen: "img/fondo-carway.png",
+            link: "#"
+        },
+        {
+            titulo: "Algoritmos",
+            categoria: "Lógica",
+            descripcion: "Colección de algoritmos complejos resueltos y optimizados para rendimiento.",
+            tecnologias: "Python • C++ • Java",
+            imagen: "img/fondo-algoritmos.png",
+            link: "#"
+        }
+    ];
+
+    // ==========================================
+    // LÓGICA PARA PINTARLOS EN EL HTML
+    // ==========================================
+    const contenedor = document.getElementById("contenedor-proyectos");
+
+    if (contenedor) {
+        let htmlContent = "";
+
+        proyectos.forEach((proyecto, index) => {
+            // Calculamos el número (01, 02, 03...)
+            // (index + 1) convierte 0 en 1
+            // .padStart(2, '0') asegura que tenga dos dígitos (01)
+            const numero = (index + 1).toString().padStart(2, '0');
+
+            htmlContent += `
+                <div class="row proyecto align-items-center g-0" data-aos="fade-up">
+                    <span class="numero-fondo">${numero}</span>
+                    
+                    <div class="col-lg-8 info">
+                        <div class="d-flex align-items-center">
+                            <span class="numero-proyecto-pequeno me-4">${numero}</span>
+                            <div class="titulo-detalles">
+                                <h3>${proyecto.titulo}</h3>
+                                <span class="texto"><p>${proyecto.categoria}</p></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 link text-end">
+                        <a href="${proyecto.link}" target="_blank">Ver Proyecto <i class="bi bi-arrow-right ms-2"></i></a>
+                        
+                        <div class="preview">
+                            <img src="${proyecto.imagen}" alt="${proyecto.titulo}">
+                            <div class="preview-overlay">
+                                <div class="preview-info">
+                                    <span>${proyecto.tecnologias}</span>
+                                    <h4>${proyecto.titulo}</h4>
+                                    <p>${proyecto.descripcion}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="proyecto-linea-horizontal">
+                </div>
+            `;
+        });
+
+        contenedor.innerHTML = htmlContent;
+    }
+});
