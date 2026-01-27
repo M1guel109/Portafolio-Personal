@@ -919,6 +919,132 @@ body {
     box-shadow: 0 0 20px rgba(177, 15, 46, 0.6);
     letter-spacing: 2px; /* Efecto de expansión */
 }
+
+/* =========================================================
+   SECCIÓN ESTUDIOS (EXPANDIBLE TIPO ACORDEÓN)
+========================================================= */
+#mis-estudios {
+    width: 100%;
+    padding: 100px 0;
+    background-color: var(--color-bg);
+}
+
+#mis-estudios h2 {
+    margin-bottom: 50px;
+    color: #fff;
+}
+
+/* CONTENEDOR DE LA TARJETA */
+.tarjeta-estudio {
+    display: flex; /* La clave para que estén lado a lado */
+    width: 100%;
+    height: 250px; /* Altura fija para que se vean uniformes */
+    border-radius: 0  12px  12px 0;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: all 0.5s ease;
+    border: 1px solid #333;
+}
+
+/* --- LADO IZQUIERDO: AÑO (VISIBLE AL INICIO) --- */
+.lado-anio {
+    /* Estado inicial: Ocupa TODO el espacio */
+    flex: 1; 
+    background: linear-gradient(135deg, #5c0012 0%, #3d000c 100%); /* Rojo muy oscuro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Animación suave */
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.lado-anio h3 {
+    font-size: 5rem; /* Gigante */
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.2); /* Transparente tipo marca de agua */
+    margin: 0;
+    transition: all 0.4s ease;
+}
+
+.indicador {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+/* --- LADO DERECHO: INFO (OCULTO AL INICIO) --- */
+.lado-info {
+    /* Estado inicial: Ancho CERO */
+    flex: 0; 
+    background: var(--color-accent); /* Tu rojo brillante */
+    overflow: hidden; /* Esconde el texto */
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.lado-info .contenido {
+    padding: 30px;
+    width: 500px; /* Ancho fijo interno para que el texto no se aplaste al animar */
+    color: #fff;
+    transform: translateX(50px); /* Efecto de entrada */
+    transition: transform 0.4s ease 0.1s;
+}
+
+.lado-info h3 { font-size: 1.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 5px; }
+.lado-info h4 { font-size: 1.1rem; opacity: 0.9; margin-bottom: 15px; font-weight: 400; }
+.lado-info p { font-size: 0.95rem; line-height: 1.5; opacity: 0.8; margin: 0; }
+
+/* =========================================================
+   INTERACCIÓN (HOVER Y ACTIVE)
+========================================================= */
+
+/* Cuando pasas el mouse... */
+.tarjeta-estudio:hover,
+.tarjeta-estudio.active {
+    box-shadow: 0 10px 30px rgba(177, 15, 46, 0.4); /* Glow rojo */
+}
+
+/* 1. El año se encoge */
+.tarjeta-estudio:hover .lado-anio,
+.tarjeta-estudio.active .lado-anio {
+    flex: 0 0 200px; /* Se queda fijo en 140px */
+    background: #1a1a1a; /* Se oscurece más */
+}
+
+/* 2. El texto del año cambia */
+.tarjeta-estudio:hover .lado-anio h3,
+.tarjeta-estudio.active .lado-anio h3 {
+    font-size: 4
+    .5rem; /* Se hace más pequeño */
+    color: #fff; /* Se pone blanco */
+}
+
+.tarjeta-estudio:hover .indicador,
+.tarjeta-estudio.active .indicador {
+    opacity: 0; /* Desaparece el texto "Info" */
+}
+
+/* 3. La info se expande */
+.tarjeta-estudio:hover .lado-info,
+.tarjeta-estudio.active .lado-info {
+    flex: 1; /* Ocupa todo el espacio restante */
+    opacity: 1;
+}
+
+/* 4. El contenido entra suavemente */
+.tarjeta-estudio:hover .contenido,
+.tarjeta-estudio.active .contenido {
+    transform: translateX(0);
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */
