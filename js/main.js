@@ -228,3 +228,30 @@ document.addEventListener("DOMContentLoaded", () => {
         contenedor.innerHTML = htmlContent;
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // Seleccionamos el título
+    const titulo = document.querySelector(".titulo-animado");
+
+    // Creamos el "Observador"
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Si el elemento entra en pantalla...
+            if (entry.isIntersecting) {
+                // ...le agregamos la clase que dispara el CSS
+                titulo.classList.add("visible");
+                
+                // Y dejamos de observar (para que no se repita)
+                observer.unobserve(titulo); 
+            }
+        });
+    }, { 
+        threshold: 0.5 // Se activa cuando el 50% del título es visible
+    });
+
+    // Si el título existe, empezamos a observar
+    if (titulo) {
+        observer.observe(titulo);
+    }
+});

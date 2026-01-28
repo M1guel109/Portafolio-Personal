@@ -1045,6 +1045,197 @@ body {
 .tarjeta-estudio.active .contenido {
     transform: translateX(0);
 }
+
+/* =========================================================
+   SECCIÓN EXPERIENCIA (TIMELINE)
+========================================================= */
+#experiencia {
+    background-color: var(--color-bg);
+    position: relative;
+    padding: 120px 0;
+}
+
+/* --- TEXTOS IZQUIERDA --- */
+.experiencia-subtitulo {
+    color: var(--color-accent);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.experiencia-titulo {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem); /* Responsive */
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+}
+
+.experiencia-titulo .miguel {
+    color: var(--color-accent);
+}
+
+/* --- TIMELINE ESTRUCTURA --- */
+/* LÍNEA VERTICAL */
+.timeline {
+    position: relative;
+    padding-left: 20px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 10px; 
+    bottom: 0;
+    left: 49px; /* Centrado con el punto */
+    width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ITEM INDIVIDUAL */
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    cursor: pointer; /* Manito al pasar mouse */
+    padding: 10px 0;
+}
+
+/* EL PUNTO (DOT) */
+.timeline-dot {
+    position: absolute;
+    top: 15px; 
+    left: 19px; 
+    width: 22px;
+    height: 22px;
+    background: var(--color-bg);
+    border: 3px solid #666; 
+    border-radius: 50%;
+    z-index: 2;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 0 5px var(--color-bg); /* Margen negro para separar de la línea */
+}
+
+/* CONTENIDO */
+.timeline-content {
+    padding-left: 60px; 
+}
+
+.encabezado-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+}
+
+.timeline-content h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    transition: color 0.3s;
+}
+
+.icono-toggle {
+    color: #666;
+    transition: transform 0.4s ease;
+}
+
+.timeline-content .fecha {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* --- LA DESCRIPCIÓN OCULTA (La magia) --- */
+.descripcion-wrapper {
+    max-height: 0; /* Oculto */
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.descripcion {
+    color: #ccc;
+    font-weight: 300;
+    line-height: 1.6;
+    padding-left: 15px;
+    border-left: 2px solid rgba(255,255,255,0.05); 
+}
+
+/* --- ESTADOS ACTIVOS (HOVER Y CLICK) --- */
+.timeline-item:hover .timeline-dot,
+.timeline-item.active .timeline-dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px var(--color-accent);
+    transform: scale(1.2);
+}
+
+.timeline-item:hover h4,
+.timeline-item.active h4 {
+    color: var(--color-accent); 
+}
+
+/* Girar la flecha */
+.timeline-item:hover .icono-toggle,
+.timeline-item.active .icono-toggle {
+    transform: rotate(180deg);
+    color: #fff;
+}
+
+/* Abrir descripción */
+.timeline-item:hover .descripcion-wrapper,
+.timeline-item.active .descripcion-wrapper {
+    max-height: 200px; 
+    opacity: 1;
+    transform: translateY(0);
+}
+/* --- TÍTULO ANIMADO --- */
+
+/* 1. ESTADO INICIAL (Oculto) */
+.titulo-animado {
+    opacity: 0;               /* INVISIBLE AL INICIO */
+    transform: translateY(40px); /* EMPUJADO HACIA ABAJO */
+    transition: all 0.8s ease-out;
+}
+
+/* 2. ESTADO VISIBLE (Cuando el JS agrega esta clase) */
+.titulo-animado.visible {
+    opacity: 1;               /* APARECE */
+    transform: translateY(0);    /* SUBE A SU POSICIÓN */
+}
+
+/* 3. PALABRAS ROJAS */
+.miguel {
+    position: relative;
+    color: var(--color-accent);
+    display: inline-block;
+    text-decoration: none;
+}
+
+/* 4. LÍNEA QUE SE DIBUJA SOLA */
+.miguel::after {
+    content: '';
+    position: absolute;
+    width: 0%;        /* Empieza sin ancho */
+    height: 3px;
+    bottom: 2px;
+    left: 0;
+    background-color: var(--color-accent);
+    transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
+    transition-delay: 0.6s; /* IMPORTANTE: Espera a que el texto suba */
+}
+
+/* Cuando el título es visible, la línea crece */
+.titulo-animado.visible .miguel::after {
+    width: 100%;
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */
