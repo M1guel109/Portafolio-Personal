@@ -1236,6 +1236,109 @@ body {
 .titulo-animado.visible .miguel::after {
     width: 100%;
 }
+
+/* =========================================================
+   SECCIÓN HOBBIES (INTERACTIVA)
+========================================================= */
+#hobbies {
+    background-color: var(--color-bg);
+    padding: 100px 0;
+    position: relative;
+}
+
+#hobbies h2 {
+    color: #fff;
+    margin-bottom: 50px;
+}
+
+/* LA TARJETA BASE */
+.hobby-card {
+    background: #111; /* Fondo muy oscuro */
+    border: 1px solid #333;
+    border-radius: 12px;
+    height: 160px; /* Altura fija cuadrada */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; /* Clave para esconder lo que se sale */
+    transition: all 0.4s ease;
+    cursor: default;
+}
+
+/* EL CONTENIDO VISIBLE (Icono y Título) */
+.contenido-visible {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.4s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.icono-hobby {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 10px;
+    display: block;
+    transition: color 0.3s;
+}
+
+.titulo-hobby {
+    color: #aaa;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* EL CONTENIDO OCULTO (Detalle) */
+.contenido-oculto {
+    position: absolute;
+    bottom: -50px; /* Escondido abajo */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.detalle {
+    color: var(--color-accent);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* --- INTERACCIÓN HOVER --- */
+
+/* 1. La tarjeta brilla */
+.hobby-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 5px 20px rgba(177, 15, 46, 0.3);
+    background: #1a0509; /* Fondo rojizo muy sutil */
+    transform: translateY(-5px);
+}
+
+/* 2. El contenido visible SUBE */
+.hobby-card:hover .contenido-visible {
+    top: 35%; /* Sube un poco */
+}
+
+/* 3. El icono se pinta de rojo y se achica un poco */
+.hobby-card:hover .icono-hobby {
+    color: var(--color-accent);
+    transform: scale(0.9);
+}
+
+/* 4. El detalle aparece desde abajo */
+.hobby-card:hover .contenido-oculto {
+    bottom: 25px; /* Sube a la vista */
+    opacity: 1;
+}
 /* =========================================================
    10. RESPONSIVE
 ========================================================= */
