@@ -255,3 +255,58 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(titulo);
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    /* =====================================================
+       1. SCROLLSPY (Detectar sección activa en el menú)
+    ===================================================== */
+    const sections = document.querySelectorAll("section, div#hero"); // Selecciona secciones y el Hero
+    const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+    const highlightMenu = () => {
+        let current = "";
+        const offset = 150; // Ajuste para que cambie un poco antes de llegar a la línea
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            // Si el scroll ha bajado lo suficiente para entrar en la sección
+            if (window.scrollY >= (sectionTop - offset)) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        // Limpiar todos los 'active' y ponerlo solo al actual
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            
+            // Si el link apunta a la sección actual, actívalo
+            if (link.getAttribute("href").includes(current)) {
+                link.classList.add("active");
+            }
+        });
+    };
+
+    // Escuchar el evento de scroll
+    window.addEventListener("scroll", highlightMenu);
+
+
+    /* =====================================================
+       2. CERRAR MENÚ AL DAR CLICK (En celulares)
+    ===================================================== */
+    // Esto es un detalle de UX: que el menú se recoja al elegir una opción
+    const menuToggle = document.getElementById('navbarNav');
+    const bsCollapse = new bootstrap.Collapse(menuToggle, {toggle: false});
+    
+    navLinks.forEach((l) => {
+        l.addEventListener('click', () => {
+            // Si el menú está abierto (clase show), ciérralo
+            if (menuToggle.classList.contains('show')) {
+                bsCollapse.toggle();
+            }
+        });
+    });
+
+});

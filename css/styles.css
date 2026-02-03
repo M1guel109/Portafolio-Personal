@@ -42,7 +42,7 @@ body {
 
 .navbar {
   padding: 10px;
-  position: relative;
+  /* position: relative; */
 }
 
 /* Línea animada del navbar (desde el centro) */
@@ -80,8 +80,10 @@ body {
   border-bottom: 1px solid transparent;
   transition: 0.5s;
 }
-.navbar #navbarNav .nav-item a:hover {
-  color: var(--color-accent);
+/* Unificamos el Hover y el Active para que se vean igual */
+.navbar #navbarNav .nav-item a:hover,
+.navbar #navbarNav .nav-item a.active {
+  color: var(--color-accent) !important; /* El !important asegura que gane sobre el color blanco base */
   border-bottom: 1px solid var(--color-accent);
 }
 
@@ -121,19 +123,42 @@ body {
 }
 
 /* IMAGEN (El ancla visual) */
-#hero img {
-  position: relative;
-  z-index: 2;
-  height: auto;
-  /* Altura dinámica: Nunca más alta que el 85% de la pantalla */
-  max-height: 85vh; 
-  width: auto;
-  max-width: 90%;
-  object-fit: contain;
-  /* Sombra suave para separar del fondo */
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+/* =========================================================
+   NUEVO: CONTENEDOR DE IMAGEN HERO CON DEGRADADO
+========================================================= */
+
+/* 1. La caja que envuelve la imagen */
+.hero-img-wrapper {
+    position: relative; /* Necesario para que el degradado se ubique dentro */
+    z-index: 2; /* Mantenemos la posición que tenía antes la imagen */
+    display: inline-block; /* Se ajusta al tamaño de la imagen */
 }
 
+/* 2. Aseguramos que la imagen se comporte bien dentro de la caja */
+.hero-img-wrapper img {
+    display: block; /* Elimina espacios extraños debajo */
+    /* Mantenemos tus tamaños aquí */
+    height: auto;
+    max-height: 85vh; /* El tamaño que definimos antes */
+    max-width: 100%;
+    object-fit: contain;
+    /* Movemos el filtro de sombra aquí */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+}
+
+/* 3. LA CAPA MÁGICA (El degradado negro) */
+.hero-img-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Altura del degradado: juega con este valor (ej: 30%, 50%) */
+    height: 30%;
+    /* El degradado: de transparente a tu color de fondo */
+    background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
+    pointer-events: none; /* Permite que los clics traspasen si fuera necesario */
+}
 /* ESTILOS COMUNES PARA AMBOS TÍTULOS */
 #hero h1 {
   position: absolute;
@@ -286,6 +311,29 @@ body {
   margin: auto;
   /* Añadimos un padding para que el patrón de fondo respire */
   padding: 20px; 
+}
+
+/* =========================================================
+   DEGRADADO PARA LA SECCIÓN SOBRE MÍ
+========================================================= */
+
+/* Usamos ::after para crear la capa de degradado encima de la foto */
+.img-container-sobremi::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%; /* Ajusta qué tanto sube el degradado (30% - 50%) */
+    
+    /* El degradado: De transparente a tu color de fondo negro */
+    background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 90%);
+    
+    /* IMPORTANTE: El z-index debe ser mayor que el de la foto */
+    /* Tu foto tiene z-index: 5, así que ponemos 6 o 10 aquí */
+    z-index: 10; 
+    
+    pointer-events: none; /* Para que no interfiera con clics */
 }
 
 /* LA FOTO PRINCIPAL */
@@ -1480,7 +1528,246 @@ body {
     color: var(--color-accent);
 }
 /* =========================================================
-   10. RESPONSIVE
+   10. RESPONSIVE (ADAPTABLE A DISPOSITIVOS)
 ========================================================= */
-@media screen and (min-width:768px) and (max-width:1080px) {}
-@media screen and (min-width:320px) and (max-width:767px) {}
+
+/* --- TABLETS Y LAPTOPS PEQUEÑAS (768px a 1080px) --- */
+@media screen and (min-width: 768px) and (max-width: 1080px) {
+    
+    /* Hero: Ajustar tamaño de texto para que no se salga */
+    #hero h1 {
+        font-size: 5rem; 
+    }
+    
+    /* Sobre Mí: La foto un poco más pequeña */
+    .img-container-sobremi {
+        max-width: 350px;
+    }
+
+    /* Perfil: Texto un poco más pequeño */
+    .titulo-seccion {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+    
+    /* Portafolio: Ajustar el número de fondo gigante */
+    .numero-fondo {
+        font-size: 10rem;
+        left: 5%;
+    }
+    .proyecto .info {
+        padding-left: 20px;
+    }
+}
+
+/* --- CELULARES (320px a 767px) --- */
+@media screen and (max-width: 767px) {
+
+    /* 1. GENERAL */
+    body {
+        overflow-x: hidden; /* Evita scroll horizontal indeseado */
+    }
+    
+    /* Navbar: Fondo negro sólido al abrir menú */
+    .navbar-collapse {
+        background: var(--color-bg);
+        padding: 20px;
+        border-bottom: 1px solid #333;
+    }
+
+    /* 2. HERO SECTION */
+    #hero {
+        padding-top: 100px;
+        align-items: flex-start; /* Subir contenido */
+    }
+    
+    #hero h1 {
+        font-size: 3.5rem; /* Reducir título gigante */
+    }
+    
+    #hero .titulo-encima {
+        transform: translateY(20%); /* Ajustar posición vertical */
+    }
+    
+    #hero img {
+        max-height: 50vh; /* Foto más pequeña en celular */
+        margin-top: 50px;
+    }
+
+    /* 3. SOBRE MÍ */
+    #sobre-mi {
+        padding: 50px 0;
+        text-align: center; /* Centrar textos */
+    }
+    
+    #sobre-mi p {
+        max-width: 100%;
+        font-size: 1rem;
+    }
+    
+    .redes-sociales-container .list-unstyled {
+        justify-content: center; /* Centrar botones */
+        flex-wrap: wrap;
+    }
+    
+    .img-container-sobremi {
+        max-width: 300px; /* Foto más pequeña */
+        margin-top: 40px;
+    }
+
+    /* 4. PERFIL PROFESIONAL */
+    #perfil-profesional {
+        padding: 80px 0 50px 0;
+    }
+    
+    .titulo-seccion {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-left: 0;
+    }
+    
+    .descripcion {
+        text-align: center;
+        font-size: 1rem;
+    }
+    
+    .btn-contacto {
+        width: 100%; /* Botón ancho completo */
+        display: flex;
+        justify-content: center;
+    }
+
+    /* 5. HABILIDADES */
+    #habilidades {
+        padding: 50px 0;
+    }
+    
+    .etiquetas-container {
+        justify-content: center; /* Botones centrados */
+        margin-bottom: 30px;
+    }
+    
+    .barras-container {
+        margin-top: 20px;
+    }
+
+    /* 6. PORTAFOLIO */
+    #portafolio {
+        padding: 50px 0;
+    }
+    
+    .proyecto {
+        padding: 2rem 1rem;
+        text-align: center; /* Centrar contenido */
+    }
+    
+    /* Ocultar elementos decorativos que estorban en móvil */
+    .numero-fondo, 
+    .proyecto hr.proyecto-linea-horizontal,
+    .proyecto .preview {
+        display: none; 
+    }
+    
+    .proyecto .info, 
+    .proyecto .link {
+        padding: 0;
+        text-align: center !important; /* Forzar centrado */
+    }
+    
+    .proyecto .d-flex {
+        justify-content: center;
+        flex-direction: column; /* Apilar número y título */
+    }
+    
+    .numero-proyecto-pequeno {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+        font-size: 2rem;
+    }
+    
+    .proyecto h3 {
+        font-size: 1.8rem;
+    }
+    
+    .proyecto .link {
+        margin-top: 20px;
+    }
+
+    /* 7. ESTUDIOS (Timeline) */
+    .tarjeta-estudio {
+        flex-direction: column; /* Apilar año arriba, info abajo */
+        height: auto;
+    }
+    
+    .lado-anio {
+        padding: 20px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        width: 100%;
+        flex: 0 0 auto; /* Que no crezca */
+    }
+    
+    .lado-anio h3 {
+        font-size: 3rem;
+    }
+    
+    .lado-info {
+        width: 100%;
+        /* En móvil, dejamos que el contenido dicte la altura */
+    }
+    
+    .lado-info .contenido {
+        padding: 20px;
+        width: 100%; /* Texto fluido */
+        transform: none; /* Sin animación lateral compleja */
+        text-align: center;
+    }
+    
+    /* Ajuste para que se vea la info al hacer clic */
+    .tarjeta-estudio.active .lado-info {
+        display: flex;
+        opacity: 1;
+    }
+
+    /* 8. EXPERIENCIA */
+    .timeline::before {
+        left: 20px; /* Ajustar línea vertical */
+    }
+    
+    .timeline-dot {
+        left: 10px; /* Ajustar punto */
+    }
+    
+    .timeline-content {
+        padding-left: 45px; /* Menos espacio a la izquierda */
+    }
+    
+    .encabezado-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .timeline-content h4 {
+        font-size: 1.2rem;
+    }
+    
+    .timeline-content .empresa {
+        display: block; /* Empresa en nueva línea */
+        font-size: 1rem;
+        margin-top: 2px;
+    }
+
+    /* 9. FOOTER */
+    .nombre-gigante {
+        font-size: 2.5rem;
+    }
+    
+    .social-buttons {
+        gap: 15px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
