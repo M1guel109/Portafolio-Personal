@@ -513,6 +513,16 @@ body {
     border-color: var(--color-accent);
     box-shadow: 0 0 30px rgba(177, 15, 46, 0.5); /* Glow rojo intenso */
     transform: translateY(-10px);
+    height: 390px; 
+    
+    /* 3. EL TRUCO: Margen negativo para que "coma" espacio hacia abajo 
+       en lugar de empujar la sección.
+       (400px - 320px = 80px de diferencia, así que restamos eso) */
+    margin-bottom: -90px; 
+    
+    /* 4. Aseguramos que quede encima de todo lo demás */
+    z-index: 10; 
+    position: relative;
 }
 
 /* Mover el título y achicarlo */
@@ -715,6 +725,23 @@ body {
     align-items: center;
     padding-right: 10px;
     border-radius: 5px;
+}
+
+/* Animación para cuando un elemento se va */
+.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+/* Animación para cuando un elemento llega */
+.fade-in {
+    animation: aparecerSuave 0.5s ease forwards;
+}
+
+@keyframes aparecerSuave {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 
