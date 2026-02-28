@@ -1596,243 +1596,564 @@ body {
    10. RESPONSIVE (ADAPTABLE A DISPOSITIVOS)
 ========================================================= */
 
-/* --- TABLETS Y LAPTOPS PEQUEÑAS (768px a 1080px) --- */
-@media screen and (min-width: 768px) and (max-width: 1080px) {
-    
-    /* Hero: Ajustar tamaño de texto para que no se salga */
-    #hero h1 {
-        font-size: 5rem; 
-    }
-    
-    /* Sobre Mí: La foto un poco más pequeña */
-    .img-container-sobremi {
-        max-width: 350px;
+/* =========================================================
+   MEDIA QUERIES - DISEÑO RESPONSIVE PROFESIONAL
+   Adaptaciones para Tablets y Móviles
+========================================================= */
+
+/* --- AJUSTES BASE PARA MÓVILES Y TABLETS --- */
+@media screen and (max-width: 991px) {
+    /* Navbar: Mejora la usabilidad del menú desplegable en táctil */
+    .navbar-collapse {
+        background: var(--color-bg);
+        padding: 1.5rem;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(177, 15, 46, 0.3);
+        max-height: 80vh;
+        overflow-y: auto;
     }
 
-    /* Perfil: Texto un poco más pequeño */
-    .titulo-seccion {
-        font-size: 2.5rem;
+    .navbar-nav {
         text-align: center;
+        padding: 1rem 0;
+    }
+
+    .navbar #navbarNav .nav-item a {
+        font-size: 1.5rem; /* Links más grandes para táctil */
+        padding: 0.75rem 0;
+        display: block;
+    }
+
+    .btnDescargar {
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem !important;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+    }
+
+    /* Hero: Reorganizar y reducir */
+    #hero {
+        flex-direction: column;
+        justify-content: flex-start;
+        min-height: 90vh;
+        padding-top: 80px;
+    }
+
+    #hero h1 {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
+        position: relative;
+        top: auto;
+        transform: none;
+        margin: 0.5rem 0;
+    }
+
+    #hero .nombre { 
+        order: 1; 
+        transform: none;
+        margin-bottom: -0.5rem; /* Ajuste para superposición controlada */
     }
     
-    /* Portafolio: Ajustar el número de fondo gigante */
-    .numero-fondo {
-        font-size: 10rem;
-        left: 5%;
+    #hero .hero-img-wrapper { 
+        order: 2; 
+        max-width: 70%;
+        margin: 0 auto;
     }
-    .proyecto .info {
-        padding-left: 20px;
+
+    #hero .titulo-encima { 
+        order: 3; 
+        transform: none;
+        margin-top: -1rem;
+    }
+
+    /* Perfil Profesional: Reducir el efecto de superposición de tarjetas */
+    .habilidades-tarjeta {
+        max-width: 100%;
+        height: auto;
+        min-height: 200px;
+        margin-bottom: 0; /* Reset del margen negativo */
+    }
+
+    .habilidades-tarjeta:hover {
+        height: auto;
+        min-height: 350px;
+        margin-bottom: 0; /* Eliminar el margen negativo en móvil */
+        transform: translateY(-5px);
     }
 }
 
-/* --- CELULARES (320px a 767px) --- */
-@media screen and (max-width: 767px) {
-
-    /* 1. GENERAL */
-    body {
-        overflow-x: hidden; /* Evita scroll horizontal indeseado */
-    }
+/* --- TABLETS (Pantallas entre 768px y 991px) --- */
+@media screen and (min-width: 768px) and (max-width: 991px) {
     
-    /* Navbar: Fondo negro sólido al abrir menú */
-    .navbar-collapse {
-        background: var(--color-bg);
-        padding: 20px;
-        border-bottom: 1px solid #333;
+    /* Hero */
+    #hero .nombre { margin-bottom: -1rem; }
+    #hero .titulo-encima { margin-top: -1.5rem; }
+
+    /* Grid de tarjetas (Habilidades y otras) */
+    .row.g-4 {
+        --bs-gutter-y: 2rem;
     }
 
-    /* 2. HERO SECTION */
-    #hero {
-        padding-top: 100px;
-        align-items: flex-start; /* Subir contenido */
-    }
-    
-    #hero h1 {
-        font-size: 3.5rem; /* Reducir título gigante */
-    }
-    
-    #hero .titulo-encima {
-        transform: translateY(20%); /* Ajustar posición vertical */
-    }
-    
-    #hero img {
-        max-height: 50vh; /* Foto más pequeña en celular */
-        margin-top: 50px;
-    }
-
-    /* 3. SOBRE MÍ */
-    #sobre-mi {
-        padding: 50px 0;
-        text-align: center; /* Centrar textos */
-    }
-    
-    #sobre-mi p {
-        max-width: 100%;
-        font-size: 1rem;
-    }
-    
-    .redes-sociales-container .list-unstyled {
-        justify-content: center; /* Centrar botones */
-        flex-wrap: wrap;
-    }
-    
-    .img-container-sobremi {
-        max-width: 300px; /* Foto más pequeña */
-        margin-top: 40px;
-    }
-
-    /* 4. PERFIL PROFESIONAL */
-    #perfil-profesional {
-        padding: 80px 0 50px 0;
-    }
-    
-    .titulo-seccion {
-        font-size: 2.5rem;
-        text-align: center;
-        margin-left: 0;
-    }
-    
-    .descripcion {
-        text-align: center;
-        font-size: 1rem;
-    }
-    
-    .btn-contacto {
-        width: 100%; /* Botón ancho completo */
-        display: flex;
-        justify-content: center;
-    }
-
-    /* 5. HABILIDADES */
-    #habilidades {
-        padding: 50px 0;
-    }
-    
-    .etiquetas-container {
-        justify-content: center; /* Botones centrados */
-        margin-bottom: 30px;
-    }
-    
-    .barras-container {
-        margin-top: 20px;
-    }
-
-    /* 6. PORTAFOLIO */
-    #portafolio {
-        padding: 50px 0;
-    }
-    
-    .proyecto {
-        padding: 2rem 1rem;
-        text-align: center; /* Centrar contenido */
-    }
-    
-    /* Ocultar elementos decorativos que estorban en móvil */
-    .numero-fondo, 
-    .proyecto hr.proyecto-linea-horizontal,
-    .proyecto .preview {
-        display: none; 
-    }
-    
-    .proyecto .info, 
-    .proyecto .link {
-        padding: 0;
-        text-align: center !important; /* Forzar centrado */
-    }
-    
-    .proyecto .d-flex {
-        justify-content: center;
-        flex-direction: column; /* Apilar número y título */
-    }
-    
-    .numero-proyecto-pequeno {
-        margin-right: 0 !important;
-        margin-bottom: 10px;
-        font-size: 2rem;
-    }
-    
-    .proyecto h3 {
-        font-size: 1.8rem;
-    }
-    
-    .proyecto .link {
-        margin-top: 20px;
-    }
-
-    /* 7. ESTUDIOS (Timeline) */
+    /* Estudios: Ajustar altura */
     .tarjeta-estudio {
-        flex-direction: column; /* Apilar año arriba, info abajo */
-        height: auto;
-    }
-    
-    .lado-anio {
-        padding: 20px 0;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        width: 100%;
-        flex: 0 0 auto; /* Que no crezca */
+        height: 220px;
     }
     
     .lado-anio h3 {
-        font-size: 3rem;
-    }
-    
-    .lado-info {
-        width: 100%;
-        /* En móvil, dejamos que el contenido dicte la altura */
-    }
-    
-    .lado-info .contenido {
-        padding: 20px;
-        width: 100%; /* Texto fluido */
-        transform: none; /* Sin animación lateral compleja */
-        text-align: center;
-    }
-    
-    /* Ajuste para que se vea la info al hacer clic */
-    .tarjeta-estudio.active .lado-info {
-        display: flex;
-        opacity: 1;
+        font-size: 3.5rem;
     }
 
-    /* 8. EXPERIENCIA */
-    .timeline::before {
-        left: 20px; /* Ajustar línea vertical */
-    }
-    
-    .timeline-dot {
-        left: 10px; /* Ajustar punto */
-    }
-    
-    .timeline-content {
-        padding-left: 45px; /* Menos espacio a la izquierda */
-    }
-    
-    .encabezado-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
+    /* Experiencia */
     .timeline-content h4 {
-        font-size: 1.2rem;
-    }
-    
-    .timeline-content .empresa {
-        display: block; /* Empresa en nueva línea */
-        font-size: 1rem;
-        margin-top: 2px;
+        font-size: 1.3rem;
     }
 
-    /* 9. FOOTER */
-    .nombre-gigante {
+    /* Hobbies */
+    .hobby-card {
+        height: 150px;
+    }
+    
+    .icono-hobby {
         font-size: 2.5rem;
     }
     
-    .social-buttons {
-        gap: 15px;
+    .hobby-card:hover .contenido-oculto {
+        bottom: 20px;
+    }
+}
+
+/* --- MÓVILES (Pantallas hasta 767px) --- */
+@media screen and (max-width: 767px) {
+
+    /* TIPOGRAFÍA: Reducción general */
+    h2 {
+        font-size: clamp(2rem, 8vw, 2.5rem) !important;
     }
     
+    h3 {
+        font-size: 1.8rem !important;
+    }
+
+    /* ESPACIADOS: Reducción de padding */
+    #sobre-mi, #perfil-profesional, #habilidades, #portafolio, 
+    #mis-estudios, #experiencia, #hobbies, #footer-premium {
+        padding: 60px 0 !important;
+    }
+
+    /* HERO - Mobile */
+    #hero {
+        min-height: 85vh;
+        padding-top: 70px;
+        padding-bottom: 30px;
+    }
+    
+    #hero .hero-img-wrapper {
+        max-width: 85%;
+    }
+    
+    #hero .hero-img-wrapper img {
+        max-height: 45vh;
+    }
+    
+    #hero h1 {
+        font-size: clamp(2rem, 12vw, 3rem);
+        line-height: 1;
+    }
+    
+    #hero .nombre { 
+        margin-bottom: 0.5rem; 
+    }
+    #hero .titulo-encima { 
+        margin-top: 0.5rem; 
+    }
+
+    #hero .transparente {
+        -webkit-text-stroke: 0.5px rgba(177, 15, 46, 0.8);
+    }
+
+    /* SOBRE MÍ - Mobile */
+    #sobre-mi h3 {
+        font-size: 2.5rem;
+    }
+
+    #sobre-mi p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .redes-sociales-container .btn-redes {
+        min-width: 120px;
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+
+    .img-container-sobremi {
+        max-width: 280px;
+    }
+    
+    /* Eliminar el degradado inferior en móvil para que la foto se vea completa */
+    .img-container-sobremi::after {
+        height: 15%; /* Mucho más sutil */
+        background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
+    }
+
+    /* PERFIL PROFESIONAL - Mobile */
+    .titulo-seccion {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .cabecera-perfil {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .descripcion {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .btn-contacto {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+
+    /* TARJETAS DE HABILIDADES (Perfil) - Mobile Friendly */
+    .habilidades-tarjeta {
+        min-height: auto;
+        height: auto;
+        padding: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .habilidades-tarjeta .card-body {
+        justify-content: flex-start;
+    }
+
+    .habilidades-tarjeta .icono,
+    .habilidades-tarjeta .detalles {
+        opacity: 1;
+        height: auto;
+        overflow: visible;
+    }
+
+    .habilidades-tarjeta .icono {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .habilidades-tarjeta .card-title {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .habilidades-tarjeta .detalles {
+        margin-top: 0.5rem;
+        padding-left: 0;
+    }
+    
+    .habilidades-tarjeta .detalles li {
+        font-size: 0.95rem;
+        padding-left: 15px;
+        margin-bottom: 3px;
+        text-align: left;
+    }
+
+    /* Eliminar el hover complejo que no funciona bien en táctil */
+    .habilidades-tarjeta:hover {
+        transform: translateY(-3px);
+        height: auto;
+        margin-bottom: 0;
+    }
+
+    /* HABILIDADES (Barras y Botones) - Mobile */
+    .etiquetas-container {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .etiquetas-container button {
+        padding: 8px 20px;
+        font-size: 16px;
+        flex: 1 1 auto;
+        min-width: 120px;
+    }
+
+    .descripcion-centro {
+        font-size: 1.1rem;
+        padding: 0 15px 30px 15px;
+    }
+
+    /* PORTAFOLIO - Mobile */
+    #portafolio h2 {
+        padding-bottom: 30px;
+    }
+
+    .proyecto {
+        padding: 1.5rem 1rem;
+    }
+
+    .proyecto .d-flex {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    .proyecto .numero {
+        font-size: 2rem;
+        opacity: 0.3;
+    }
+
+    .proyecto h3 {
+        font-size: 1.6rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .proyecto p {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .proyecto .link {
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .proyecto a {
+        display: inline-block;
+        background: rgba(177, 15, 46, 0.2);
+        padding: 0.5rem 1.5rem;
+        border-radius: 30px;
+        border: 1px solid var(--color-accent);
+    }
+
+    .proyecto a::before {
+        display: none; /* Quitar el círculo negro en móvil */
+    }
+
+    .proyecto:hover a {
+        background: var(--color-accent);
+        color: #fff;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .btn-ver-mas {
+        width: 90%;
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+
+    /* ESTUDIOS - Mobile */
+    .tarjeta-estudio {
+        flex-direction: column;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .lado-anio {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 20px 0;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        background: #2a0009; /* Un rojo más oscuro */
+    }
+
+    .lado-anio h3 {
+        font-size: 2.8rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .indicador {
+        opacity: 1;
+        color: #fff;
+    }
+
+    .lado-info {
+        flex: 1;
+        width: 100%;
+        background: var(--color-accent);
+        padding: 0;
+    }
+
+    .lado-info .contenido {
+        padding: 25px 20px;
+        text-align: center;
+        transform: none;
+        width: 100%;
+    }
+
+    /* Interacción táctil para estudios */
+    .tarjeta-estudio.active .lado-anio {
+        background: #1a1a1a;
+    }
+    .tarjeta-estudio.active .lado-anio h3 {
+        color: #fff;
+        font-size: 2.5rem;
+    }
+    .tarjeta-estudio.active .indicador {
+        opacity: 0;
+    }
+
+    /* EXPERIENCIA - Mobile */
+    #experiencia {
+        padding: 60px 0;
+    }
+
+    .experiencia-titulo {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .experiencia-subtitulo {
+        text-align: center;
+    }
+
+    .timeline::before {
+        left: 25px;
+    }
+
+    .timeline-dot {
+        left: 16px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .timeline-content {
+        padding-left: 50px;
+    }
+
+    .encabezado-item {
+        flex-direction: row; /* Mantener en fila para el icono */
+        flex-wrap: wrap;
+    }
+
+    .timeline-content h4 {
+        font-size: 1.2rem;
+        width: calc(100% - 30px); /* Espacio para el icono */
+    }
+
+    .timeline-content .empresa {
+        display: inline;
+        font-size: 0.9rem;
+    }
+
+    .icono-toggle {
+        font-size: 1.2rem;
+    }
+
+    .descripcion {
+        font-size: 0.95rem;
+        padding-left: 10px;
+    }
+
+    /* HOBBIES - Mobile */
+    .hobby-card {
+        height: 140px;
+    }
+
+    .icono-hobby {
+        font-size: 2.2rem;
+    }
+
+    .titulo-hobby {
+        font-size: 0.8rem;
+    }
+
+    .detalle {
+        font-size: 0.85rem;
+    }
+
+    /* Adaptar hover a un tap-friendly state */
+    .hobby-card:active {
+        border-color: var(--color-accent);
+        background: #1a0509;
+        transform: scale(0.98);
+    }
+    .hobby-card:active .contenido-visible {
+        top: 35%;
+    }
+    .hobby-card:active .icono-hobby {
+        color: var(--color-accent);
+        transform: scale(0.9);
+    }
+    .hobby-card:active .contenido-oculto {
+        bottom: 25px;
+        opacity: 1;
+    }
+
+    /* FOOTER - Mobile */
+    #footer-premium {
+        padding: 50px 0 20px 0 !important;
+    }
+
+    .nombre-gigante {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .frase-cierre {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .social-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
     .footer-bottom {
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .back-to-top {
+        justify-content: center;
+        font-size: 1rem;
+    }
+}
+
+/* --- MÓVILES PEQUEÑOS (hasta 400px) --- */
+@media screen and (max-width: 400px) {
+    #hero h1 {
+        font-size: clamp(1.8rem, 10vw, 2.5rem);
+    }
+
+    #hero .hero-img-wrapper {
+        max-width: 95%;
+    }
+
+    .nombre-gigante {
+        font-size: 1.8rem;
+    }
+
+    .etiquetas-container button {
+        min-width: 100%;
+    }
+}
+
+/* --- ORIENTACIÓN PAISAJE EN MÓVILES --- */
+@media screen and (max-width: 850px) and (orientation: landscape) {
+    #hero {
+        min-height: 120vh;
+        padding-top: 100px;
+    }
+
+    #hero .hero-img-wrapper img {
+        max-height: 60vh;
+    }
+
+    .hero-img-wrapper::after {
+        height: 20%;
+    }
+
+    .navbar-collapse {
+        max-height: 80vh;
+        overflow-y: auto;
     }
 }
