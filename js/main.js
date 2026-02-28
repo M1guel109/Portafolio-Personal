@@ -1,10 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const navbar = document.querySelector(".navbar");
+// =========================================================
+    // CUSTOM CURSOR (CORREGIDO)
+    // =========================================================
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
 
-  // Espera un pequeño tiempo para que se note el efecto
-  setTimeout(() => {
-    navbar.classList.add("animar-linea");
-  }, 400);
+    // Seguir el movimiento del mouse y asegurar que sea visible
+    document.addEventListener('mousemove', (e) => {
+        cursorDot.style.left = e.clientX + 'px';
+        cursorDot.style.top = e.clientY + 'px';
+        cursorRing.style.left = e.clientX + 'px';
+        cursorRing.style.top = e.clientY + 'px';
+        
+        // Forzamos a que se vea mientras se mueve
+        cursorDot.style.opacity = '1';
+        cursorRing.style.opacity = '0.7';
+    });
+
+    // Ocultar cursor SOLO cuando sale de la ventana principal
+    document.addEventListener('mouseleave', () => {
+        cursorDot.style.opacity = '0';
+        cursorRing.style.opacity = '0';
+    });
+
+    // Expandir cursor en hover sobre <a> y <button>
+    const hoverElements = document.querySelectorAll('a, button');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorRing.classList.add('expand');
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorRing.classList.remove('expand');
+        });
+    });
+
+    // =========================================================
+    // NAVBAR
+    // =========================================================
+    const navbar = document.querySelector(".navbar");
+
+    // Espera un pequeño tiempo para que se note el efecto
+    setTimeout(() => {
+        navbar.classList.add("animar-linea");
+    }, 400);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -36,8 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const div = document.createElement('div');
         div.classList.add('skill-item', 'fade-in'); // Clase fade-in para animar entrada
         // Agregamos un ID único para poder buscarlo y borrarlo luego
-        div.id = `barra-${skill.nombre}`; 
-        
+        div.id = `barra-${skill.nombre}`;
+
         div.innerHTML = `
             <div class="skill-info">
                 <h3>${skill.nombre}</h3>
@@ -47,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="progress-bar" style="width: 0%"></div>
             </div>
         `;
-        
+
         // Animamos la barra inmediatamente después de crearla
         setTimeout(() => {
             div.querySelector('.progress-bar').style.width = `${skill.pct}%`;
@@ -94,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 2. Intercambio Quirúrgico (Sin borrar todo)
     function intercambiarHabilidad(nombreSkillEntrante) {
-        
+
         // A. IDENTIFICAR JUGADORES
         // 1. El botón que clickeaste (Entrante)
         const btnClickeado = document.getElementById(`btn-${nombreSkillEntrante}`);
@@ -102,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 2. La barra que se va (La primera de la lista visible)
         // Buscamos el primer hijo del contenedor de barras
-        const barraSalienteDOM = containerBarras.firstElementChild; 
+        const barraSalienteDOM = containerBarras.firstElementChild;
         // Obtenemos su nombre desde el ID (ej: "barra-HTML" -> "HTML")
         const nombreSaliente = barraSalienteDOM.id.replace('barra-', '');
         const dataSaliente = habilidadesData.find(h => h.nombre === nombreSaliente);
@@ -124,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
             habilidadesData.push(habilidadesData.splice(index, 1)[0]);
 
             // 2. MANIPULACIÓN DOM (Aquí está el truco: remover y agregar solo lo necesario)
-            
+
             // a) Eliminar los elementos viejos del HTML
             btnClickeado.remove();
             barraSalienteDOM.remove();
@@ -143,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- UTILIDADES ---
     function animarNumero(elemento, target) {
         let actual = 0;
-        const incremento = Math.ceil(target / 100); 
+        const incremento = Math.ceil(target / 100);
         const timer = setInterval(() => {
             actual += incremento;
             if (actual >= target) {
@@ -167,58 +205,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// ==========================================
+// LÓGICA DE PROYECTOS (Cargando desde JSON)
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // ==========================================
-    // DATOS DE TUS PROYECTOS (TIPO JSON)
-    // ==========================================
-    const proyectos = [
-        {
-            titulo: "Rumbo",
-            categoria: "UX/UI Design",
-            descripcion: "Aplicación móvil diseñada para facilitar el transporte urbano con rutas inteligentes.",
-            tecnologias: "Figma • Prototipado",
-            imagen: "img/foto-gym.png", // Reemplaza con tus rutas reales
-            link: "#"
-        },
-        {
-            titulo: "Gym System",
-            categoria: "Full Stack",
-            descripcion: "Plataforma de gestión de usuarios, membresías y rutinas para gimnasios.",
-            tecnologias: "PHP • MySQL • Bootstrap",
-            imagen: "img/fondo-rumbo.png",
-            link: "#"
-        },
-        {
-            titulo: "Carway",
-            categoria: "Frontend + API",
-            descripcion: "Dashboard interactivo para el alquiler y rastreo de vehículos en tiempo real.",
-            tecnologias: "React • Tailwind • API",
-            imagen: "img/fondo-carway.png",
-            link: "#"
-        },
-        {
-            titulo: "Algoritmos",
-            categoria: "Lógica",
-            descripcion: "Colección de algoritmos complejos resueltos y optimizados para rendimiento.",
-            tecnologias: "Python • C++ • Java",
-            imagen: "img/fondo-algoritmos.png",
-            link: "#"
-        }
-    ];
-
-    // ==========================================
-    // LÓGICA PARA PINTARLOS EN EL HTML
-    // ==========================================
     const contenedor = document.getElementById("contenedor-proyectos");
 
-    if (contenedor) {
+    // 1. Función que va a buscar el archivo JSON
+    async function cargarProyectos() {
+        try {
+            const resp = await fetch('data/proyectos.json');
+            if (!resp.ok) throw new Error('Error al cargar datos');
+            const proyectosData = await resp.json();
+
+            // Si todo sale bien, se los pasamos a la función que los dibuja
+            renderizarGaleria(proyectosData);
+        } catch (err) {
+            console.error("Hubo un error cargando los proyectos:", err);
+            if (contenedor) {
+                contenedor.innerHTML = "<p>Error al cargar los proyectos. Intenta de nuevo más tarde.</p>";
+            }
+        }
+    }
+
+    // 2. Función que toma los datos y crea el HTML
+    function renderizarGaleria(proyectosData) {
+        if (!contenedor) return;
+
         let htmlContent = "";
 
-        proyectos.forEach((proyecto, index) => {
-            // Calculamos el número (01, 02, 03...)
-            // (index + 1) convierte 0 en 1
-            // .padStart(2, '0') asegura que tenga dos dígitos (01)
+        proyectosData.forEach((proyecto, index) => {
             const numero = (index + 1).toString().padStart(2, '0');
 
             htmlContent += `
@@ -256,10 +272,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         contenedor.innerHTML = htmlContent;
     }
+
+    // 3. ¡MUY IMPORTANTE! Dar la orden de arranque
+    cargarProyectos();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     // Seleccionamos el título
     const titulo = document.querySelector(".titulo-animado");
 
@@ -270,12 +289,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (entry.isIntersecting) {
                 // ...le agregamos la clase que dispara el CSS
                 titulo.classList.add("visible");
-                
+
                 // Y dejamos de observar (para que no se repita)
-                observer.unobserve(titulo); 
+                observer.unobserve(titulo);
             }
         });
-    }, { 
+    }, {
         threshold: 0.5 // Se activa cuando el 50% del título es visible
     });
 
@@ -286,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     /* =====================================================
        1. SCROLLSPY (Detectar sección activa en el menú)
     ===================================================== */
@@ -300,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sections.forEach((section) => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            
+
             // Si el scroll ha bajado lo suficiente para entrar en la sección
             if (window.scrollY >= (sectionTop - offset)) {
                 current = section.getAttribute("id");
@@ -310,7 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Limpiar todos los 'active' y ponerlo solo al actual
         navLinks.forEach((link) => {
             link.classList.remove("active");
-            
+
             // Si el link apunta a la sección actual, actívalo
             if (link.getAttribute("href").includes(current)) {
                 link.classList.add("active");
@@ -327,8 +346,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
     // Esto es un detalle de UX: que el menú se recoja al elegir una opción
     const menuToggle = document.getElementById('navbarNav');
-    const bsCollapse = new bootstrap.Collapse(menuToggle, {toggle: false});
-    
+    const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false });
+
     navLinks.forEach((l) => {
         l.addEventListener('click', () => {
             // Si el menú está abierto (clase show), ciérralo

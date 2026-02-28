@@ -1,34 +1,42 @@
 [
   {
-    "titulo": "Rumbo",
-    "categoria": "UX/UI Design",
-    "descripcion": "Aplicación móvil diseñada para facilitar el transporte urbano con rutas inteligentes.",
-    "tecnologias": "Figma • Prototipado",
-    "imagen": "img/foto-gym.png",
-    "link": "#"
-  },
-  {
-    "titulo": "Gym System",
-    "categoria": "Full Stack",
-    "descripcion": "Plataforma de gestión de usuarios, membresías y rutinas para gimnasios.",
-    "tecnologias": "PHP • MySQL • Bootstrap",
+    "titulo": "Rumbo - Turismo",
+    "categoria": "Landing Page / Frontend",
+    "descripcion": "Página de aterrizaje para una agencia de turismo. Presenta planes de viaje, destinos destacados y un formulario de contacto con una interfaz limpia.",
+    "tecnologias": "HTML5 • CSS3",
     "imagen": "img/fondo-rumbo.png",
-    "link": "#"
+    "link": "https://m1guel109.github.io/Rumbo-practica-html-css/"
   },
   {
-    "titulo": "Carway",
-    "categoria": "Frontend + API",
-    "descripcion": "Dashboard interactivo para el alquiler y rastreo de vehículos en tiempo real.",
-    "tecnologias": "React • Tailwind • API",
+    "titulo": "GYM Fitness Center",
+    "categoria": "Frontend / Responsive",
+    "descripcion": "Sitio web responsivo para un gimnasio. Incluye secciones de servicios, planes de membresía, clases destacadas y un sistema de testimonios.",
+    "tecnologias": "HTML5 • CSS3 • Bootstrap",
+    "imagen": "img/fondo-gym.png",
+    "link": "https://m1guel109.github.io/Sitio-web-con-Bootstrap/"
+  },
+  {
+    "titulo": "Driveways - Car Rentals",
+    "categoria": "Frontend / Diseño Web",
+    "descripcion": "Plataforma para el alquiler de vehículos. Cuenta con un catálogo de autos, filtrado por categorías, precios y una sección de blog con noticias.",
+    "tecnologias": "HTML5 • CSS3 • Diseño Responsivo",
     "imagen": "img/fondo-carway.png",
-    "link": "#"
+    "link": "https://m1guel109.github.io/Web-Sitio-Responsive-Final/"
   },
   {
-    "titulo": "Algoritmos",
-    "categoria": "Lógica",
-    "descripcion": "Colección de algoritmos complejos resueltos y optimizados para rendimiento.",
-    "tecnologias": "Python • C++ • Java",
+    "titulo": "Lógica y Algoritmos",
+    "categoria": "JavaScript Vanilla",
+    "descripcion": "Colección de algoritmos de nivel intermedio y avanzado. Incluye sistemas de calificación, calculadoras dinámicas, manipulación de arreglos y filtrado de objetos.",
+    "tecnologias": "JavaScript • Lógica de Programación",
     "imagen": "img/fondo-algoritmos.png",
-    "link": "#"
+    "link": "https://m1guel109.github.io/Algoritmos-nivel-intermedio-avanzado/"
+  },
+  {
+    "titulo": "To-Do List Interactiva",
+    "categoria": "Manipulación del DOM",
+    "descripcion": "Aplicación de lista de tareas con modo oscuro/claro. Permite agregar, completar y eliminar ítems dinámicamente mediante eventos del usuario.",
+    "tecnologias": "HTML5 • CSS3 • JavaScript",
+    "imagen": "img/fondo-to-do-list.png",
+    "link": "https://m1guel109.github.io/To-do-list-JS/"
   }
 ]

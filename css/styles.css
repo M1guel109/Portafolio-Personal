@@ -36,6 +36,44 @@ p, a, button, li, label, input, select, textarea, span {
 body {
   background: var(--color-bg);
   color: var(--color-text);
+  cursor: none;
+}
+
+/* =========================================================
+   CUSTOM CURSOR
+========================================================= */
+*, *::before, *::after, a, button {
+    cursor: none !important;
+}
+
+#cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+  opacity: 0.7;
+}
+
+#cursor-ring.expand {
+  width: 50px;
+  height: 50px;
 }
 
 .bg-negro { background: var(--color-bg); }
