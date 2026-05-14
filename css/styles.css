@@ -13,13 +13,8 @@
 /* =========================================================
    3. ESTILOS GENERALES
 ========================================================= */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Inter", sans-serif;
-}
-
-p, a, button, li, label, input, select, textarea, span {
-  font-family: "IBM Plex Sans", sans-serif;
-}
+h1, h2, h3, h4, h5, h6 { font-family: "Inter", sans-serif; }
+p, a, button, li, label, input, select, textarea, span { font-family: "IBM Plex Sans", sans-serif; }
 
 /* =========================================================
    4. VARIABLES
@@ -31,20 +26,19 @@ p, a, button, li, label, input, select, textarea, span {
 }
 
 /* =========================================================
-   5. GENERAL / NAVBAR
+   5. GENERAL / BODY
 ========================================================= */
 body {
   background: var(--color-bg);
   color: var(--color-text);
   cursor: none;
+  overflow-x: hidden;
 }
 
 /* =========================================================
    CUSTOM CURSOR
 ========================================================= */
-*, *::before, *::after, a, button {
-    cursor: none !important;
-}
+*, *::before, *::after, a, button { cursor: none !important; }
 
 #cursor-dot {
   position: fixed;
@@ -71,19 +65,16 @@ body {
   opacity: 0.7;
 }
 
-#cursor-ring.expand {
-  width: 50px;
-  height: 50px;
-}
+#cursor-ring.expand { width: 50px; height: 50px; }
 
+/* =========================================================
+   NAVBAR  — intacto, exactamente como estaba
+========================================================= */
 .bg-negro { background: var(--color-bg); }
 
-.navbar {
-  padding: 10px;
-  /* position: relative; */
-}
+.navbar { padding: 10px; }
 
-/* Línea animada del navbar (desde el centro) */
+/* Línea animada del navbar (desde el centro) — SIN CAMBIOS */
 .navbar::after {
   content: "";
   position: absolute;
@@ -95,16 +86,10 @@ body {
   transform: translateX(-50%);
   transition: width 1.2s ease;
 }
-.navbar.animar-linea::after {
-  width: 95%;
-}
+.navbar.animar-linea::after { width: 95%; }
 
 /* Logo */
-.navbar .logo {
-  font-size: 25px;
-  font-weight: 800;
-  transition: 0.5s;
-}
+.navbar .logo { font-size: 25px; font-weight: 800; transition: 0.5s; }
 .navbar .logo:hover { transform: scale(1.1); }
 
 .miguel { color: var(--color-accent); }
@@ -118,17 +103,15 @@ body {
   border-bottom: 1px solid transparent;
   transition: 0.5s;
 }
-/* Unificamos el Hover y el Active para que se vean igual */
 .navbar #navbarNav .nav-item a:hover,
 .navbar #navbarNav .nav-item a.active {
-  color: var(--color-accent) !important; /* El !important asegura que gane sobre el color blanco base */
+  color: var(--color-accent) !important;
   border-bottom: 1px solid var(--color-accent);
 }
 
 .btnDescargar {
-  text-decoration: none; /* El !important fuerza que se quite la línea */
+  text-decoration: none;
   background: var(--color-accent);
-  border-radius: 4px; /* Un poco más cuadrado como Figma */
   color: #fff !important;
   padding: 10px 25px;
   font-size: 16px;
@@ -136,68 +119,97 @@ body {
   transition: all 0.3s ease;
   border-radius: 0 10px 0 10px;
 }
-
 .btnDescargar:hover {
-  background: #900b25; /* Un rojo un poco más oscuro al pasar el mouse */
+  background: #900b25;
   color: #000 !important;
   transform: translateY(-2px);
 }
 
 /* =========================================================
-   6. HERO SECTION
+   WAVE DIVIDERS — nuevos
 ========================================================= */
+.wave-divider {
+  display: block;
+  overflow: hidden;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.wave-divider svg { display: block; width: 100%; height: 70px; }
+
+/* El bg de cada wave coincide con el fondo de la sección anterior */
+.wave-1 { background: var(--color-bg); }
+.wave-2 { background: var(--color-bg); }
+.wave-3 { background: #0a0a0a; }
+.wave-4 { background: var(--color-bg); }
+.wave-5 { background: #100508; }
+.wave-6 { background: var(--color-bg); }
+.wave-7 { background: #0a0a0a; }
+
 /* =========================================================
-   6. HERO SECTION (ADAPTABLE SIN TOCAR HTML)
+   6. HERO SECTION
 ========================================================= */
 #hero {
   position: relative;
   display: flex;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
   background-color: var(--color-bg);
   overflow: hidden;
-  padding-top: 60px; /* Compensa el navbar fijo */
+  padding-top: 60px;
 }
 
-/* IMAGEN (El ancla visual) */
-/* =========================================================
-   NUEVO: CONTENEDOR DE IMAGEN HERO CON DEGRADADO
-========================================================= */
+/* tsParticles — posición absoluta detrás de todo */
+#particles-hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
 
-/* 1. La caja que envuelve la imagen */
+/* Glow del cursor para el parallax */
+#hero-glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(177,15,46,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: left 0.12s ease, top 0.12s ease, opacity 0.3s ease;
+}
+
+/* Imagen */
 .hero-img-wrapper {
-    position: relative; /* Necesario para que el degradado se ubique dentro */
-    z-index: 2; /* Mantenemos la posición que tenía antes la imagen */
-    display: inline-block; /* Se ajusta al tamaño de la imagen */
+  position: relative;
+  z-index: 2;
+  display: inline-block;
 }
-
-/* 2. Aseguramos que la imagen se comporte bien dentro de la caja */
 .hero-img-wrapper img {
-    display: block; /* Elimina espacios extraños debajo */
-    /* Mantenemos tus tamaños aquí */
-    height: auto;
-    max-height: 85vh; /* El tamaño que definimos antes */
-    max-width: 100%;
-    object-fit: contain;
-    /* Movemos el filtro de sombra aquí */
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+  display: block;
+  height: auto;
+  max-height: 85vh;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+}
+.hero-img-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
+  pointer-events: none;
 }
 
-/* 3. LA CAPA MÁGICA (El degradado negro) */
-.hero-img-wrapper::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    /* Altura del degradado: juega con este valor (ej: 30%, 50%) */
-    height: 30%;
-    /* El degradado: de transparente a tu color de fondo */
-    background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
-    pointer-events: none; /* Permite que los clics traspasen si fuera necesario */
-}
-/* ESTILOS COMUNES PARA AMBOS TÍTULOS */
+/* Títulos hero */
 #hero h1 {
   position: absolute;
   width: 100%;
@@ -207,137 +219,113 @@ body {
   margin: 0;
   padding: 0;
   left: 0;
-  
-  /* CLAMP: El texto crece/encoge suavemente entre 3rem y 9rem */
-  font-size: clamp(3rem, 8vw, 9rem); 
-  
-  /* Junta las líneas verticalmente para que se vea compacto */
-  line-height: 0.9; 
+  font-size: clamp(3rem, 8vw, 9rem);
+  line-height: 0.9;
   color: var(--color-accent);
 }
 
-/* TÍTULO DE ATRÁS ("MIGUEL LOZANO") */
-#hero .nombre { 
-  z-index: 1; 
-  /* Lo ponemos en el centro exacto */
-  top: 50%; 
-  /* Lo empujamos hacia ARRIBA un 130% de su propio tamaño */
-  transform: translateY(-130%); 
+#hero .nombre {
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-130%);
 }
 
-/* TÍTULO DE ADELANTE ("DESARROLLADOR WEB") */
-#hero .titulo-encima { 
-  z-index: 3; 
-  /* Lo ponemos en el centro exacto */
-  top: 50%; 
-  /* Lo empujamos hacia ABAJO un 40% de su propio tamaño */
-  transform: translateY(40%); 
-  pointer-events: none; /* Permite clicks a través del texto */
+#hero .titulo-encima {
+  z-index: 3;
+  top: 50%;
+  transform: translateY(40%);
+  pointer-events: none;
 }
 
-/* TEXTO TRANSPARENTE CON BORDE */
 #hero .transparente {
   color: transparent;
-  /* Borde blanco semitransparente (estilo Figma) */
   -webkit-text-stroke: 1px rgba(177, 15, 46, 1);
 }
 
 /* =========================================================
-   7. SECCIÓN "SOBRE MÍ"
+   SCRAMBLE TITLE
 ========================================================= */
+.scramble-title { cursor: default; display: inline-block; }
+
 /* =========================================================
-   7. SECCIÓN "SOBRE MÍ"
+   7. SOBRE MÍ
 ========================================================= */
 #sobre-mi {
   padding: 100px 0;
   position: relative;
-  /* Aseguramos que el fondo sea negro sólido para que resalte el texto */
-  background-color: var(--color-bg); 
+  background-color: var(--color-bg);
 }
 
-/* TÍTULOS */
 #sobre-mi h4 {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   font-size: 1.2rem;
-  color: #858585; /* Gris suave como en Figma */
+  color: #858585;
   margin-bottom: 5px;
 }
 
 #sobre-mi h3 {
   font-family: "Inter", sans-serif;
   font-size: 3rem;
-  font-weight: 800; /* Letra bien gruesa */
+  font-weight: 800;
   color: #fff;
   margin-bottom: 20px;
 }
 
-#sobre-mi .nombre-rojo { 
-  color: var(--color-accent); 
-}
+#sobre-mi .nombre-rojo { color: var(--color-accent); }
 
-/* PÁRRAFO */
 #sobre-mi p {
   font-size: 1.1rem;
   font-weight: 300;
-  line-height: 1.6; /* Más espacio entre líneas para leer mejor */
-  color: #d1d1d1; /* Blanco no tan brillante para no cansar la vista */
-  max-width: 90%; /* Evita que el texto se estire demasiado */
+  line-height: 1.6;
+  color: #d1d1d1;
+  max-width: 90%;
 }
 
-/* La palabra <lógica> en rojo */
-#sobre-mi .logica-p { 
+#sobre-mi .logica-p {
   color: var(--color-accent);
-  font-family: "Source Code Pro", monospace; /* Opcional: fuente tipo código si te gusta */
+  font-family: "Source Code Pro", monospace;
   font-weight: 600;
 }
 
 /* =========================================================
-   8. REDES SOCIALES (Estilo Figma)
+   8. REDES SOCIALES
 ========================================================= */
-.redes-sociales-container .list-unstyled {
-    margin-top: 30px;
-}
+.redes-sociales-container .list-unstyled { margin-top: 30px; }
 
 .redes-sociales-container .btn-redes {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto; /* Que se ajuste al contenido */
-  min-width: 140px; /* Ancho mínimo para que se vean iguales */
+  width: auto;
+  min-width: 140px;
   padding: 10px 20px;
-  
-  /* ESTILO FIGMA: Fondo Blanco, Texto Rojo */
-  background: #fff; 
+  background: #fff;
   color: var(--color-accent);
-  
   text-decoration: none;
-  border-radius: 4px; /* Bordes apenas redondeados */
+  border-radius: 4px;
   font-size: 16px;
-  font-weight: 700; /* Texto negrita */
+  font-weight: 700;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .redes-sociales-container .btn-redes i {
-  color: var(--color-accent); /* Icono rojo */
+  color: var(--color-accent);
   margin-right: 8px;
   font-size: 1.2rem;
   transition: color 0.3s;
 }
 
-/* HOVER: Se invierten los colores (Rojo fondo, blanco texto) */
 .redes-sociales-container .btn-redes:hover {
   background: var(--color-accent);
   color: #fff;
-  transform: translateY(-3px); /* Pequeño salto hacia arriba */
+  transform: translateY(-3px);
 }
-.redes-sociales-container .btn-redes:hover i {
-  color: #fff;
-}
+.redes-sociales-container .btn-redes:hover i { color: #fff; }
 
 /* =========================================================
-   9. IMAGEN Y DECORACIÓN "SOBRE MÍ" (Corregido)
+   9. IMAGEN SOBRE MÍ
 ========================================================= */
 .img-container-sobremi {
   position: relative;
@@ -347,1813 +335,1435 @@ body {
   width: 100%;
   max-width: 450px;
   margin: auto;
-  /* Añadimos un padding para que el patrón de fondo respire */
-  padding: 20px; 
+  padding: 20px;
 }
 
-/* =========================================================
-   DEGRADADO PARA LA SECCIÓN SOBRE MÍ
-========================================================= */
-
-/* Usamos ::after para crear la capa de degradado encima de la foto */
 .img-container-sobremi::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%; /* Ajusta qué tanto sube el degradado (30% - 50%) */
-    
-    /* El degradado: De transparente a tu color de fondo negro */
-    background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 90%);
-    
-    /* IMPORTANTE: El z-index debe ser mayor que el de la foto */
-    /* Tu foto tiene z-index: 5, así que ponemos 6 o 10 aquí */
-    z-index: 10; 
-    
-    pointer-events: none; /* Para que no interfiera con clics */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 90%);
+  z-index: 10;
+  pointer-events: none;
 }
 
-/* LA FOTO PRINCIPAL */
 .img-container-sobremi img.foto-flotante {
   position: relative;
   z-index: 5;
   width: 100%;
   height: auto;
   filter: drop-shadow(0 0 20px rgba(0,0,0,0.5));
-  /* AQUI ESTÁ LA MAGIA: Animación suave de flotación */
   animation: flotarSuave 4s ease-in-out infinite alternate;
 }
 
-/* EL NUEVO FONDO DE PATRÓN (Usando imagen PNG) */
 .img-container-sobremi::before {
   content: "";
   position: absolute;
-  top: 0; 
+  top: 0;
   right: 0;
-  width: 45%;  /* Ocupa el 60% del ancho del contenedor */
-  height: 45%; /* Ocupa el 80% del alto */
-  z-index: 1; /* Detrás de la foto */
-  opacity: 0.6; /* Ajusta esto si el patrón se ve muy fuerte o muy suave */
-  
-  /* Reemplaza esto con la ruta a tu imagen exportada de Figma */
-  background-image: url('../img/fondo-patron.png'); 
+  width: 45%;
+  height: 45%;
+  z-index: 1;
+  opacity: 0.6;
+  background-image: url('../img/fondo-patron.png');
   background-repeat: no-repeat;
   background-position: top right;
   background-size: contain;
 }
 
-
-/* Borramos las clases viejas de los cuadros animados para limpiar código */
 .figura-cuadro, .figura-cuadro:hover { display: none; }
 
-
-/* =========================================================
-   11. ANIMACIONES PERSONALIZADAS
-========================================================= */
-/* Animación para que tu foto respire/flote suavemente */
 @keyframes flotarSuave {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-15px); /* Se mueve 15px hacia arriba y vuelve */
-  }
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-15px); }
 }
 
 /* =========================================================
-   SECCIÓN PERFIL PROFESIONAL
+   PERFIL PROFESIONAL
 ========================================================= */
 #perfil-profesional {
-    position: relative;
-    padding: 150px 0 100px 0; /* Espacio arriba y abajo */
-    width: 100%;
-    overflow: hidden; /* Evita que la imagen de fondo cause scroll horizontal */
+  position: relative;
+  padding: 150px 0 100px 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #0a0a0a;
 }
 
-/* IMAGEN DE FONDO (Tu Frame 5.png) */
-/* Reemplaza esto en tu CSS */
 .fondo-perfil {
-    position: absolute; /* Saca la imagen del flujo normal */
-    top: -160px;
-    left: -50px;
-    width: 100%;  /* Ancho total */
-    height: 100%; /* Alto total de la sección */
-    z-index: -1; /* La manda atrás del texto y las tarjetas */
+  position: absolute;
+  top: -160px;
+  left: -50px;
+  width: 100%;
+  height: 100%;
+  /* z-index: -1; */
 }
 
-.fondo-perfil img{
-  border-radius: 0 0 20px 20px;
-}
+.fondo-perfil img { border-radius: 0 0 20px 20px; }
 
+.cabecera-perfil { padding-left: 5%; padding-right: 5%; }
 
-/* Ajuste para que el título respire y no toque el borde izquierdo */
-.cabecera-perfil {
-    padding-left: 5%; /* Un empujoncito hacia la derecha */
-    padding-right: 5%;
-}
-
-/* TEXTOS DE CABECERA */
 .titulo-seccion {
-    font-family: "Inter", sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Tamaño responsive */
-    font-weight: 800;
-    color: #fff;
-    text-transform: uppercase;
-    line-height: 1;
-    margin-bottom: 20px;
-    text-align: center; /* En celular se centra */
-    margin-left: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-left: 10px;
 }
 
-@media (min-width: 992px) {
-    .titulo-seccion { text-align: left; } /* En PC a la izquierda */
-}
+@media (min-width: 992px) { .titulo-seccion { text-align: left; } }
 
 .descripcion {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: #ddd;
-    line-height: 1.6;
-    margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #ddd;
+  line-height: 1.6;
+  margin-bottom: 30px;
 }
 
-/* BOTÓN CONTACTO */
 .btn-contacto {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 30px;
-    background: var(--color-accent);
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(177, 15, 46, 0.4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(177, 15, 46, 0.4);
 }
-.btn-contacto:hover {
-    background: #fff; /* Fondo blanco */
-    color: var(--color-accent); /* Texto rojo */
-    transform: translateY(-3px);
-}
+.btn-contacto:hover { background: #fff; color: var(--color-accent); transform: translateY(-3px); }
 .btn-contacto i { margin-left: 10px; }
 
-/* --- ESTILOS DE LAS TARJETAS --- */
+/* Tarjetas habilidades */
 .habilidades-tarjeta {
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-    height: 320px; /* Altura fija para todas */
-    background: #050505; /* Negro casi puro */
-    border: 1px solid #222;
-    border-radius: 12px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición suave */
-    box-shadow: 0 0 20px rgba(0,0,0,0.5); /* Sombra negra base */
-    cursor: pointer;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  height: 320px;
+  background: #050505;
+  border: 1px solid #222;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  cursor: pointer;
 }
 
 .habilidades-tarjeta .card-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Centrado vertical por defecto */
-    padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-/* TÍTULO (Estado normal) */
 .habilidades-tarjeta .card-title {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    color: #fff;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    margin: 0;
-    transition: all 0.4s ease;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin: 0;
+  transition: all 0.4s ease;
 }
 
-/* ELEMENTOS OCULTOS POR DEFECTO */
 .habilidades-tarjeta .icono,
 .habilidades-tarjeta .detalles {
-    opacity: 0;
-    height: 0;
-    overflow: hidden;
-    transition: all 0.4s ease;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
 }
 
-/* --- ESTADO ACTIVO (HOVER) --- */
 .habilidades-tarjeta:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 30px rgba(177, 15, 46, 0.5); /* Glow rojo intenso */
-    transform: translateY(-10px);
-    height: 390px; 
-    
-    /* 3. EL TRUCO: Margen negativo para que "coma" espacio hacia abajo 
-       en lugar de empujar la sección.
-       (400px - 320px = 80px de diferencia, así que restamos eso) */
-    margin-bottom: -90px; 
-    
-    /* 4. Aseguramos que quede encima de todo lo demás */
-    z-index: 10; 
-    position: relative;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 30px rgba(177, 15, 46, 0.5);
+  transform: translateY(-10px);
+  height: 390px;
+  margin-bottom: -90px;
+  z-index: 10;
+  position: relative;
 }
 
-/* Mover el título y achicarlo */
-.habilidades-tarjeta:hover .card-title {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
+.habilidades-tarjeta:hover .card-title { font-size: 1.1rem; margin-bottom: 10px; }
 
-/* Mostrar Icono */
 .habilidades-tarjeta:hover .icono {
-    height: auto;
-    opacity: 1;
-    font-size: 3rem;
-    color: var(--color-accent);
-    margin-bottom: 10px;
-    animation: slideUp 0.3s ease forwards;
+  height: auto;
+  opacity: 1;
+  font-size: 3rem;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+  animation: slideUp 0.3s ease forwards;
 }
 
-/* Mostrar Lista */
 .habilidades-tarjeta:hover .detalles {
-    height: auto;
-    opacity: 1;
-    list-style: none;
-    padding: 0;
-    text-align: left;
-    width: 100%;
+  height: auto;
+  opacity: 1;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  width: 100%;
 }
 
 .habilidades-tarjeta .detalles li {
-    font-size: 1rem;
-    color: #ccc;
-    margin-bottom: 5px;
-    padding-left: 15px;
-    position: relative;
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  position: relative;
 }
 .habilidades-tarjeta .detalles li::before {
-    content: "•";
-    color: var(--color-accent);
-    position: absolute;
-    left: 0;
-    font-weight: bold;
+  content: "•";
+  color: var(--color-accent);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
 
-/* Animación de entrada suave para los elementos internos */
 @keyframes slideUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 /* =========================================================
-   SECCIÓN HABILIDADES (ADAPTADO AL NUEVO HTML)
+   HABILIDADES
 ========================================================= */
-
-/* 1. CONFIGURACIÓN DE LA SECCIÓN */
 #habilidades {
-    width: 100%;
-    padding: 50px 0;
-    background-color: var(--color-bg); /* Asegura que el fondo sea el correcto */
+  width: 100%;
+  padding: 50px 0;
+  background-color: var(--color-bg);
 }
 
-/* 2. TIPOGRAFÍA (Títulos y Descripción) */
 .titulo-seccion-centro {
-    text-align: center;
-    font-weight: 700;
-    font-size: 30px;
-    color: #fff; /* Aseguramos color blanco */
-    margin-bottom: 20px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
 .descripcion-centro {
-    /* Ajusté el padding a porcentaje para que no rompa en celulares, 
-       pero mantiene el estilo centrado y grande que te gusta */
-    padding: 0 10%; 
-    font-size: 25px;
-    text-align: center;
-    padding-bottom: 60px;
-    color: #fff;
+  padding: 0 10%;
+  font-size: 25px;
+  text-align: center;
+  padding-bottom: 60px;
+  color: #fff;
 }
 
-/* 3. CONTENEDOR DE BOTONES (Izquierda) */
-/* Ahora usamos flex-wrap porque todos los botones están en un solo div */
-/* --- 3. CONTENEDOR DE BOTONES (Izquierda) --- */
 .etiquetas-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end; /* Alineados a la derecha */
-    gap: 12px;
-    max-width: 600px;
-    margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  max-width: 600px;
+  margin-left: auto;
 }
 
-/* ESTILO BASE DEL BOTÓN */
 .etiquetas-container button {
-    border-radius: 8px;
-    padding: 10px 35px;
-    font-weight: 700;
-    font-size: 18px;
-    background-color: var(--color-accent);
-    color: #fff;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-    
-    /* IMPORTANTE: Solo opacity 0 aquí. NO pongas 'animation' aquí */
-    opacity: 0; 
+  border-radius: 8px;
+  padding: 10px 35px;
+  font-weight: 700;
+  font-size: 18px;
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  opacity: 0;
 }
 
-/* CLASE PARA LA ANIMACIÓN (El JS agregará esta clase) */
 .etiquetas-container button.animar {
-    animation: caerDesdeIzquierda 0.5s ease-out forwards;
+  animation: caerDesdeIzquierda 1s ease-out forwards;
 }
 
-/* HOVER */
 .etiquetas-container button:hover {
-    background-color: #900b25;
-    transform: translateY(-3px);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-/* KEYFRAMES */
-@keyframes caerDesdeIzquierda {
-    0% {
-        opacity: 0;
-        transform: translateX(-150px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* 4. ANIMACIÓN (Idéntica a tu ejemplo) */
-/* Clase que agrega el JS para animar */
-.etiquetas-container button.animar {
-    animation: caerDesdeIzquierda 1s ease-out forwards;
+  background-color: #900b25;
+  transform: translateY(-3px);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 @keyframes caerDesdeIzquierda {
-    0% {
-        opacity: 0;
-        transform: translateX(-150px) rotate(0);
-    }
-    80% {
-        transform: translateX(10px) rotate(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0) rotate(0);
-    }
+  0%   { opacity: 0; transform: translateX(-150px) rotate(0); }
+  80%  { transform: translateX(10px) rotate(0); }
+  100% { opacity: 1; transform: translateX(0) rotate(0); }
 }
 
-/* 5. BARRAS DE PROGRESO (Derecha) */
-.barras-container {
-    width: 100%;
-}
-
-/* Estilo para cada item de habilidad (div generado por JS) */
-.barras-container .skill-item { 
-    margin-bottom: 20px;
-}
+.barras-container { width: 100%; }
+.barras-container .skill-item { margin-bottom: 20px; }
 
 .skill-info {
-    display: flex;
-    justify-content: space-between; /* Esto empuja uno a cada extremo */
-    align-items: center;
-    width: 100%;
-    margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
-/* Título de la barra (HTML, CSS, etc) */
 .barras-container h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #fff;
-    /* Para que el porcentaje quede a la derecha si lo agregas en el HTML */
-    display: flex; 
-    justify-content: space-between; 
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
 }
 
-/* Fondo de la barra */
 .progress {
-    background-color: #222;
-    border-radius: 8px;
-    height: 10px;
-    position: relative;
-    overflow: hidden;
+  background-color: #222;
+  border-radius: 8px;
+  height: 10px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Barra de color que se llena */
 .progress-bar {
-    width: 0;
-    height: 100%;
-    background: var(--color-accent); /* Tu rojo */
-    position: relative;
-    transition: width 1.5s ease-in-out;
-    color: #fff;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
-    border-radius: 5px;
+  width: 0;
+  height: 100%;
+  background: var(--color-accent);
+  position: relative;
+  transition: width 1.5s ease-in-out;
+  color: #fff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  border-radius: 5px;
 }
 
-/* Animación para cuando un elemento se va */
-.fade-out {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.3s ease;
-}
+.fade-out { opacity: 0; transform: scale(0.9); transition: all 0.3s ease; }
 
-/* Animación para cuando un elemento llega */
-.fade-in {
-    animation: aparecerSuave 0.5s ease forwards;
-}
+.fade-in { animation: aparecerSuave 0.5s ease forwards; }
 
 @keyframes aparecerSuave {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-#portafolio {
-    width: 100%;
-    padding: 100px 0;
-    position: relative;
-    overflow: hidden;
-}
-
-#portafolio h2 {
-    text-align: center;
-    font-weight: 700;
-    padding-bottom: 70px;
-}
-
-.proyecto {
-    position: relative;
-    background: #af0e2c80;
-    margin: 1px 0;
-    padding: 2rem;
-    transition: all 0.5s ease;
-    /* overflow: hidden; */
-    cursor: pointer;
-}
-
-.numero-fondo {
-    position: absolute;
-    top: 47%;
-    left: 250px;
-    transform: translateY(-50%) scale(0.5);
-    font-size: 15rem;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.15);
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-    white-space: nowrap;
-}
-
-.proyecto:hover .numero-fondo {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
-}
-
-.proyecto.inactive:hover .numero-fondo {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
-}
-
-.proyecto.active .numero-fondo {
-    transform: translateY(-50%) scale(1);
-    opacity: 1;
-}
-
-
-.proyecto .info {
-    padding-left: 170px;
-}
-
-.proyecto hr {
-    position: absolute;
-    border: 1px solid #fff;
-    width: 14%;
-    top: 83px;
-    left: 0;
-}
-
-
-.proyecto .numero {
-    font-size: 2.5rem;
-    opacity: 0.5;
-    transition: all 0.4s ease;
-}
-
-.proyecto h3 {
-    margin-top: 0.5rem;
-    font-size: 2rem;
-    transition: all 0.4s ease;
-}
-
-.proyecto p {
-    opacity: 0.8;
-    font-size: 20px;
-    font-weight: 200;
-}
-
-.proyecto .link {
-    padding-right: 150px;
-}
-
-.proyecto a {
-    position: relative;
-    display: inline-block;
-    color: #fff;
-    font-weight: bold;
-    text-decoration: none;
-    transition: all 0.4s ease;
-    z-index: 10;
-}
-
-.proyecto a::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -25px;
-    /* ajusta según quieras la posición */
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: #000;
-    border-radius: 50%;
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-.proyecto:hover .link a::before {
-    opacity: 0;
-}
-
-/* Imagen escondida por defecto */
-.proyecto .preview {
-    position: absolute;
-    right: 0;
-    bottom: -20px;
-    max-width: 100%;
-    width: 350px;
-    opacity: 0;
-    transform: rotate(-5deg) scale(0.95);
-    transition: all 0.6s ease;
-}
-
-.proyecto .preview::before {
-    content: "";
-    position: absolute;
-    top: 100px;
-    left: -40px;
-    width: 90%;
-    height: 70%;
-    background: rgba(0, 0, 0, 0.9);
-    box-shadow: -10px 0 30px rgba(255, 0, 0, 0.7);
-    z-index: -1;
-    transition: all 0.5s ease;
-}
-
-.proyecto .preview img {
-    width: 400px;
-    border-radius: 12px;
-}
-
-/* Overlay oscuro para que se lea el texto */
-.preview-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px;
-    color: #fff;
-}
-
-/* Textos dentro del preview */
-.preview-info h4 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--color-accent);
-}
-.preview-info span {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #ccc;
-    margin-bottom: 5px;
-    display: block;
-}
-.preview-info p {
-    font-size: 0.85rem;
-    opacity: 0.8;
-    margin: 0;
-    line-height: 1.4;
-}
-
-/* 🖱️ Efecto hover */
-.proyecto:hover {
-    background: #b1122f;
-    transform: scale(1);
-    box-shadow: 0px 0px 40px -10px var(--color-bg);
-    z-index: 20;
-    /* 🔥 Importante */
-    position: relative;
-    /* Necesario para que z-index funcione */
-
-}
-
-.proyecto:hover .numero {
-    font-size: 5rem;
-    opacity: 0.2;
-}
-
-.proyecto:hover h3 {
-    font-size: 2.5rem;
-}
-
-.proyecto:hover a {
-    color: #fff;
-    background: #fff;
-    color: #000;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    z-index: 999;
-}
-
-.proyecto:hover .preview {
-    right: -1px;
-    bottom: -56px;
-    opacity: 1;
-    transform: rotate(0) scale(1);
-    z-index: 30;
-}
-
-/* --- BOTÓN VER MÁS --- */
-.btn-ver-mas-container {
-    margin-top: 60px;
-    text-align: center;
-}
-
-.btn-ver-mas {
-    display: inline-block;
-    padding: 15px 50px;
-    border: 2px solid var(--color-accent);
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    background: transparent;
-}
-
-.btn-ver-mas:hover {
-    background: var(--color-accent);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(177, 15, 46, 0.6);
-    letter-spacing: 2px; /* Efecto de expansión */
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================================
-   SECCIÓN ESTUDIOS (EXPANDIBLE TIPO ACORDEÓN)
+   PORTAFOLIO
+========================================================= */
+#portafolio {
+  width: 100%;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+  background-color: #100508;
+}
+
+#portafolio h2 { text-align: center; font-weight: 700; padding-bottom: 70px; }
+
+.proyecto {
+  position: relative;
+  background: #af0e2c80;
+  margin: 1px 0;
+  padding: 2rem;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.numero-fondo {
+  position: absolute;
+  top: 47%;
+  left: 250px;
+  transform: translateY(-50%) scale(0.5);
+  font-size: 15rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.15);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  white-space: nowrap;
+}
+
+.proyecto:hover .numero-fondo { transform: translateY(-50%) scale(1); opacity: 1; }
+.proyecto.inactive:hover .numero-fondo { transform: translateY(-50%) scale(1); opacity: 1; }
+.proyecto.active .numero-fondo { transform: translateY(-50%) scale(1); opacity: 1; }
+
+.proyecto .info { padding-left: 170px; }
+
+.proyecto hr {
+  position: absolute;
+  border: 1px solid #fff;
+  width: 14%;
+  top: 83px;
+  left: 0;
+}
+
+.proyecto .numero { font-size: 2.5rem; opacity: 0.5; transition: all 0.4s ease; }
+.proyecto h3 { margin-top: 0.5rem; font-size: 2rem; transition: all 0.4s ease; }
+.proyecto p { opacity: 0.8; font-size: 20px; font-weight: 200; }
+.proyecto .link { padding-right: 150px; }
+
+.proyecto a {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.4s ease;
+  z-index: 10;
+}
+
+.proyecto a::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -25px;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: #000;
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.proyecto:hover .link a::before { opacity: 0; }
+
+.proyecto .preview {
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  max-width: 100%;
+  width: 350px;
+  opacity: 0;
+  transform: rotate(-5deg) scale(0.95);
+  transition: all 0.6s ease;
+}
+
+.proyecto .preview::before {
+  content: "";
+  position: absolute;
+  top: 100px;
+  left: -40px;
+  width: 90%;
+  height: 70%;
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: -10px 0 30px rgba(255, 0, 0, 0.7);
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.proyecto .preview img { width: 400px; border-radius: 12px; }
+
+.preview-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: #fff;
+}
+
+.preview-info h4 { font-size: 1.5rem; font-weight: 700; margin: 0; color: var(--color-accent); }
+.preview-info span { font-size: 0.9rem; font-weight: 600; text-transform: uppercase; color: #ccc; margin-bottom: 5px; display: block; }
+.preview-info p { font-size: 0.85rem; opacity: 0.8; margin: 0; line-height: 1.4; }
+
+.proyecto:hover {
+  background: #b1122f;
+  transform: scale(1);
+  box-shadow: 0px 0px 40px -10px var(--color-bg);
+  z-index: 20;
+  position: relative;
+}
+
+.proyecto:hover .numero { font-size: 5rem; opacity: 0.2; }
+.proyecto:hover h3 { font-size: 2.5rem; }
+
+.proyecto:hover a {
+  color: #fff;
+  background: #fff;
+  color: #000;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  z-index: 999;
+}
+
+.proyecto:hover .preview {
+  right: -1px;
+  bottom: -56px;
+  opacity: 1;
+  transform: rotate(0) scale(1);
+  z-index: 30;
+}
+
+.btn-ver-mas-container { margin-top: 60px; text-align: center; }
+
+.btn-ver-mas {
+  display: inline-block;
+  padding: 15px 50px;
+  border: 2px solid var(--color-accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.btn-ver-mas:hover {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(177, 15, 46, 0.6);
+  letter-spacing: 2px;
+}
+
+/* =========================================================
+   ESTUDIOS
 ========================================================= */
 #mis-estudios {
-    width: 100%;
-    padding: 100px 0;
-    background-color: var(--color-bg);
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--color-bg);
 }
 
-#mis-estudios h2 {
-    margin-bottom: 50px;
-    color: #fff;
-}
+#mis-estudios h2 { margin-bottom: 50px; color: #fff; }
 
-/* CONTENEDOR DE LA TARJETA */
 .tarjeta-estudio {
-    display: flex; /* La clave para que estén lado a lado */
-    width: 100%;
-    height: 250px; /* Altura fija para que se vean uniformes */
-    border-radius: 0  12px  12px 0;
-    overflow: hidden;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: all 0.5s ease;
-    border: 1px solid #333;
+  display: flex;
+  width: 100%;
+  height: 250px;
+  border-radius: 0 12px 12px 0;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: all 0.5s ease;
+  border: 1px solid #333;
 }
 
-/* --- LADO IZQUIERDO: AÑO (VISIBLE AL INICIO) --- */
 .lado-anio {
-    /* Estado inicial: Ocupa TODO el espacio */
-    flex: 1; 
-    background: linear-gradient(135deg, #5c0012 0%, #3d000c 100%); /* Rojo muy oscuro */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Animación suave */
-    border-right: 1px solid rgba(255,255,255,0.1);
+  flex: 1;
+  background: linear-gradient(135deg, #5c0012 0%, #3d000c 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  border-right: 1px solid rgba(255,255,255,0.1);
 }
 
 .lado-anio h3 {
-    font-size: 5rem; /* Gigante */
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.2); /* Transparente tipo marca de agua */
-    margin: 0;
-    transition: all 0.4s ease;
+  font-size: 5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0;
+  transition: all 0.4s ease;
 }
 
 .indicador {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: var(--color-accent);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
 
-/* --- LADO DERECHO: INFO (OCULTO AL INICIO) --- */
 .lado-info {
-    /* Estado inicial: Ancho CERO */
-    flex: 0; 
-    background: var(--color-accent); /* Tu rojo brillante */
-    overflow: hidden; /* Esconde el texto */
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  flex: 0;
+  background: var(--color-accent);
+  overflow: hidden;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .lado-info .contenido {
-    padding: 30px;
-    width: 500px; /* Ancho fijo interno para que el texto no se aplaste al animar */
-    color: #fff;
-    transform: translateX(50px); /* Efecto de entrada */
-    transition: transform 0.4s ease 0.1s;
+  padding: 30px;
+  width: 500px;
+  color: #fff;
+  transform: translateX(50px);
+  transition: transform 0.4s ease 0.1s;
 }
 
 .lado-info h3 { font-size: 1.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 5px; }
 .lado-info h4 { font-size: 1.1rem; opacity: 0.9; margin-bottom: 15px; font-weight: 400; }
 .lado-info p { font-size: 0.95rem; line-height: 1.5; opacity: 0.8; margin: 0; }
 
-/* =========================================================
-   INTERACCIÓN (HOVER Y ACTIVE)
-========================================================= */
-
-/* Cuando pasas el mouse... */
 .tarjeta-estudio:hover,
-.tarjeta-estudio.active {
-    box-shadow: 0 10px 30px rgba(177, 15, 46, 0.4); /* Glow rojo */
-}
+.tarjeta-estudio.active { box-shadow: 0 10px 30px rgba(177, 15, 46, 0.4); }
 
-/* 1. El año se encoge */
 .tarjeta-estudio:hover .lado-anio,
-.tarjeta-estudio.active .lado-anio {
-    flex: 0 0 200px; /* Se queda fijo en 140px */
-    background: #1a1a1a; /* Se oscurece más */
-}
+.tarjeta-estudio.active .lado-anio { flex: 0 0 200px; background: #1a1a1a; }
 
-/* 2. El texto del año cambia */
 .tarjeta-estudio:hover .lado-anio h3,
-.tarjeta-estudio.active .lado-anio h3 {
-    font-size: 4
-    .5rem; /* Se hace más pequeño */
-    color: #fff; /* Se pone blanco */
-}
+.tarjeta-estudio.active .lado-anio h3 { font-size: 3.5rem; color: #fff; }
 
 .tarjeta-estudio:hover .indicador,
-.tarjeta-estudio.active .indicador {
-    opacity: 0; /* Desaparece el texto "Info" */
-}
+.tarjeta-estudio.active .indicador { opacity: 0; }
 
-/* 3. La info se expande */
 .tarjeta-estudio:hover .lado-info,
-.tarjeta-estudio.active .lado-info {
-    flex: 1; /* Ocupa todo el espacio restante */
-    opacity: 1;
-}
+.tarjeta-estudio.active .lado-info { flex: 1; opacity: 1; }
 
-/* 4. El contenido entra suavemente */
 .tarjeta-estudio:hover .contenido,
-.tarjeta-estudio.active .contenido {
-    transform: translateX(0);
-}
+.tarjeta-estudio.active .contenido { transform: translateX(0); }
 
 /* =========================================================
-   SECCIÓN EXPERIENCIA (TIMELINE)
+   EXPERIENCIA
 ========================================================= */
 #experiencia {
-    background-color: var(--color-bg);
-    position: relative;
-    padding: 120px 0;
+  background-color: #0a0a0a;
+  position: relative;
+  padding: 120px 0;
 }
 
-/* --- TEXTOS IZQUIERDA --- */
 .experiencia-subtitulo {
-    color: var(--color-accent);
-    font-family: "IBM Plex Sans", sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+  color: var(--color-accent);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
 .experiencia-titulo {
-    font-family: "Inter", sans-serif;
-    font-size: clamp(2.5rem, 4vw, 3.5rem); /* Responsive */
-    font-weight: 800;
-    line-height: 1.1;
-    color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
 }
 
-.experiencia-titulo .miguel {
-    color: var(--color-accent);
-}
+.experiencia-titulo .miguel { color: var(--color-accent); }
 
-/* --- TIMELINE ESTRUCTURA --- */
-/* LÍNEA VERTICAL */
-.timeline {
-    position: relative;
-    padding-left: 20px;
-}
+.timeline { position: relative; padding-left: 20px; }
 
 .timeline::before {
-    content: '';
-    position: absolute;
-    top: 10px; 
-    bottom: 0;
-    left: 49px; /* Centrado con el punto */
-    width: 2px;
-    background: rgba(255, 255, 255, 0.1);
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 0;
+  left: 49px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* ITEM INDIVIDUAL */
 .timeline-item {
-    position: relative;
-    margin-bottom: 30px;
-    cursor: pointer; /* Manito al pasar mouse */
-    padding: 10px 0;
+  position: relative;
+  margin-bottom: 30px;
+  cursor: pointer;
+  padding: 10px 0;
 }
 
-/* EL PUNTO (DOT) */
 .timeline-dot {
-    position: absolute;
-    top: 15px; 
-    left: 19px; 
-    width: 22px;
-    height: 22px;
-    background: var(--color-bg);
-    border: 3px solid #666; 
-    border-radius: 50%;
-    z-index: 2;
-    transition: all 0.4s ease;
-    box-shadow: 0 0 0 5px var(--color-bg); /* Margen negro para separar de la línea */
+  position: absolute;
+  top: 15px;
+  left: 19px;
+  width: 22px;
+  height: 22px;
+  background: var(--color-bg);
+  border: 3px solid #666;
+  border-radius: 50%;
+  z-index: 2;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 0 5px var(--color-bg);
 }
 
-/* CONTENIDO */
-.timeline-content {
-    padding-left: 60px; 
-}
+.timeline-content { padding-left: 60px; }
 
-.encabezado-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; 
-}
+.encabezado-item { display: flex; align-items: center; justify-content: space-between; }
 
-.timeline-content h4 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0;
-    transition: color 0.3s;
-}
+.timeline-content h4 { font-size: 1.4rem; font-weight: 700; color: #fff; margin: 0; transition: color 0.3s; }
 
-.icono-toggle {
-    color: #666;
-    transition: transform 0.4s ease;
-}
+.icono-toggle { color: #666; transition: transform 0.4s ease; }
 
 .timeline-content .fecha {
-    color: var(--color-accent);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    display: block;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: block;
 }
 
-/* --- LA DESCRIPCIÓN OCULTA (La magia) --- */
 .descripcion-wrapper {
-    max-height: 0; /* Oculto */
-    overflow: hidden;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .descripcion {
-    color: #ccc;
-    font-weight: 300;
-    line-height: 1.6;
-    padding-left: 15px;
-    border-left: 2px solid rgba(255,255,255,0.05); 
+  color: #ccc;
+  font-weight: 300;
+  line-height: 1.6;
+  padding-left: 15px;
+  border-left: 2px solid rgba(255,255,255,0.05);
 }
 
-/* --- ESTADOS ACTIVOS (HOVER Y CLICK) --- */
 .timeline-item:hover .timeline-dot,
 .timeline-item.active .timeline-dot {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    box-shadow: 0 0 15px var(--color-accent);
-    transform: scale(1.2);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 15px var(--color-accent);
+  transform: scale(1.2);
 }
 
 .timeline-item:hover h4,
-.timeline-item.active h4 {
-    color: var(--color-accent); 
-}
+.timeline-item.active h4 { color: var(--color-accent); }
 
-/* Girar la flecha */
 .timeline-item:hover .icono-toggle,
-.timeline-item.active .icono-toggle {
-    transform: rotate(180deg);
-    color: #fff;
-}
+.timeline-item.active .icono-toggle { transform: rotate(180deg); color: #fff; }
 
-/* Abrir descripción */
 .timeline-item:hover .descripcion-wrapper,
-.timeline-item.active .descripcion-wrapper {
-    max-height: 200px; 
-    opacity: 1;
-    transform: translateY(0);
-}
-/* --- TÍTULO ANIMADO --- */
+.timeline-item.active .descripcion-wrapper { max-height: 200px; opacity: 1; transform: translateY(0); }
 
-/* 1. ESTADO INICIAL (Oculto) */
+/* Título animado */
 .titulo-animado {
-    opacity: 0;               /* INVISIBLE AL INICIO */
-    transform: translateY(40px); /* EMPUJADO HACIA ABAJO */
-    transition: all 0.8s ease-out;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
 }
 
-/* 2. ESTADO VISIBLE (Cuando el JS agrega esta clase) */
-.titulo-animado.visible {
-    opacity: 1;               /* APARECE */
-    transform: translateY(0);    /* SUBE A SU POSICIÓN */
-}
+.titulo-animado.visible { opacity: 1; transform: translateY(0); }
 
-/* 3. PALABRAS ROJAS */
 .miguel {
-    position: relative;
-    color: var(--color-accent);
-    display: inline-block;
-    text-decoration: none;
+  position: relative;
+  color: var(--color-accent);
+  display: inline-block;
+  text-decoration: none;
 }
 
-/* 4. LÍNEA QUE SE DIBUJA SOLA */
 .miguel::after {
-    content: '';
-    position: absolute;
-    width: 0%;        /* Empieza sin ancho */
-    height: 3px;
-    bottom: 2px;
-    left: 0;
-    background-color: var(--color-accent);
-    transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
-    transition-delay: 0.6s; /* IMPORTANTE: Espera a que el texto suba */
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  bottom: 2px;
+  left: 0;
+  background-color: var(--color-accent);
+  transition: width 1s cubic-bezier(0.25, 1, 0.5, 1);
+  transition-delay: 0.6s;
 }
 
-/* Cuando el título es visible, la línea crece */
-.titulo-animado.visible .miguel::after {
-    width: 100%;
-}
+.titulo-animado.visible .miguel::after { width: 100%; }
 
 /* =========================================================
-   SECCIÓN HOBBIES (INTERACTIVA)
+   HOBBIES
 ========================================================= */
 #hobbies {
-    background-color: var(--color-bg);
-    padding: 100px 0;
-    position: relative;
+  background-color: #0f0a0f;
+  padding: 100px 0;
+  position: relative;
 }
 
-#hobbies h2 {
-    color: #fff;
-    margin-bottom: 50px;
-}
+#hobbies h2 { color: #fff; margin-bottom: 50px; }
 
-/* LA TARJETA BASE */
 .hobby-card {
-    background: #111; /* Fondo muy oscuro */
-    border: 1px solid #333;
-    border-radius: 12px;
-    height: 160px; /* Altura fija cuadrada */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden; /* Clave para esconder lo que se sale */
-    transition: all 0.4s ease;
-    cursor: default;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: default;
 }
 
-/* EL CONTENIDO VISIBLE (Icono y Título) */
 .contenido-visible {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: all 0.4s ease;
-    text-align: center;
-    width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.4s ease;
+  text-align: center;
+  width: 100%;
 }
 
-.icono-hobby {
-    font-size: 3rem;
-    color: #fff;
-    margin-bottom: 10px;
-    display: block;
-    transition: color 0.3s;
-}
+.icono-hobby { font-size: 3rem; color: #fff; margin-bottom: 10px; display: block; transition: color 0.3s; }
 
 .titulo-hobby {
-    color: #aaa;
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    margin: 0;
+  color: #aaa;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin: 0;
 }
 
-/* EL CONTENIDO OCULTO (Detalle) */
 .contenido-oculto {
-    position: absolute;
-    bottom: -50px; /* Escondido abajo */
-    left: 0;
-    width: 100%;
-    text-align: center;
-    opacity: 0;
-    transition: all 0.4s ease;
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: all 0.4s ease;
 }
 
 .detalle {
-    color: var(--color-accent);
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
+  color: var(--color-accent);
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-/* --- INTERACCIÓN HOVER --- */
+.hobby-card:hover { border-color: var(--color-accent); box-shadow: 0 5px 20px rgba(177, 15, 46, 0.3); background: #1a0509; transform: translateY(-5px); }
+.hobby-card:hover .contenido-visible { top: 35%; }
+.hobby-card:hover .icono-hobby { color: var(--color-accent); transform: scale(0.9); }
+.hobby-card:hover .contenido-oculto { bottom: 25px; opacity: 1; }
 
-/* 1. La tarjeta brilla */
-.hobby-card:hover {
-    border-color: var(--color-accent);
-    box-shadow: 0 5px 20px rgba(177, 15, 46, 0.3);
-    background: #1a0509; /* Fondo rojizo muy sutil */
-    transform: translateY(-5px);
-}
-
-/* 2. El contenido visible SUBE */
-.hobby-card:hover .contenido-visible {
-    top: 35%; /* Sube un poco */
-}
-
-/* 3. El icono se pinta de rojo y se achica un poco */
-.hobby-card:hover .icono-hobby {
-    color: var(--color-accent);
-    transform: scale(0.9);
-}
-
-/* 4. El detalle aparece desde abajo */
-.hobby-card:hover .contenido-oculto {
-    bottom: 25px; /* Sube a la vista */
-    opacity: 1;
-}
-
-/* --- FOOTER PREMIUM ESTILO "GLOW" --- */
+/* =========================================================
+   FOOTER
+========================================================= */
 #footer-premium {
-    background-color: var(--color-bg); /* Casi negro, un poco más claro que el fondo */
-    padding: 80px 0 30px 0;
-    position: relative;
-    overflow: hidden;
-    /* Borde superior sutil */
-    /* border-top: 1px solid rgba(255, 255, 255, 0.05); */
+  background-color: var(--color-bg);
+  padding: 80px 0 30px 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Efecto de luz roja superior (Opcional, se ve muy pro) */
 #footer-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
-    box-shadow: 0 0 20px var(--color-accent);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  box-shadow: 0 0 20px var(--color-accent);
 }
 
-.footer-content {
-    text-align: center;
-}
+.footer-content { text-align: center; }
 
-/* 1. TIPOGRAFÍA DEL NOMBRE */
 .nombre-gigante {
-    font-family: "Inter", sans-serif;
-    font-weight: 900;
-    font-size: 3.5rem; /* Grande */
-    letter-spacing: -1px;
-    color: #fff;
-    margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-size: 3.5rem;
+  letter-spacing: -1px;
+  color: #fff;
+  margin: 0;
 }
 
-.nombre-gigante .apellido {
-    color: var(--color-accent); /* Tu rojo */
-}
+.nombre-gigante .apellido { color: var(--color-accent); }
 
 .frase-cierre {
-    color: #888;
-    font-family: "IBM Plex Sans", sans-serif;
-    font-size: 1.1rem;
-    font-weight: 300;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 10px;
+  color: #888;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 10px;
 }
 
-/* 2. BOTONES SOCIALES (Círculos) */
-.social-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-}
+.social-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
 
 .social-btn {
-    width: 55px;
-    height: 55px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.social-btn:hover { background: var(--color-accent); color: #fff; transform: translateY(-5px); box-shadow: 0 0 20px rgba(177, 15, 46, 0.5); }
+
+.social-btn .tooltip {
+  position: absolute;
+  top: -40px;
+  background: #fff;
+  color: #000;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.social-btn .tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #fff;
+}
+
+.social-btn:hover .tooltip { opacity: 1; visibility: visible; top: -50px; }
+
+.copyright { color: #666; font-size: 0.9rem; margin: 0; text-align: center; }
+
+.back-to-top { color: #fff; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; display: flex; align-items: center; gap: 5px; }
+.back-to-top:hover { color: var(--color-accent); }
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media screen and (max-width: 991px) {
+  .navbar-collapse { background: var(--color-bg); padding: 1.5rem; border-radius: 0 0 12px 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); border-top: 1px solid rgba(177, 15, 46, 0.3); max-height: 80vh; overflow-y: auto; }
+  .navbar-nav { text-align: center; padding: 1rem 0; }
+  .navbar #navbarNav .nav-item a { font-size: 1.5rem; padding: 0.75rem 0; display: block; }
+  .btnDescargar { width: 100%; text-align: center; margin-top: 1rem !important; padding: 15px 25px; font-size: 1.2rem; }
+  #hero { flex-direction: column; justify-content: flex-start; min-height: 90vh; padding-top: 80px; }
+  #hero h1 { font-size: clamp(2.5rem, 10vw, 4.5rem); position: relative; top: auto; transform: none; margin: 0.5rem 0; }
+  #hero .nombre { order: 1; transform: none; margin-bottom: -0.5rem; }
+  #hero .hero-img-wrapper { order: 2; max-width: 70%; margin: 0 auto; }
+  #hero .titulo-encima { order: 3; transform: none; margin-top: -1rem; }
+  .habilidades-tarjeta { max-width: 100%; height: auto; min-height: 200px; margin-bottom: 0; }
+  .habilidades-tarjeta:hover { height: auto; min-height: 350px; margin-bottom: 0; transform: translateY(-5px); }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  #hero .nombre { margin-bottom: -1rem; }
+  #hero .titulo-encima { margin-top: -1.5rem; }
+  .row.g-4 { --bs-gutter-y: 2rem; }
+  .tarjeta-estudio { height: 220px; }
+  .lado-anio h3 { font-size: 3.5rem; }
+  .timeline-content h4 { font-size: 1.3rem; }
+  .hobby-card { height: 150px; }
+  .icono-hobby { font-size: 2.5rem; }
+  .hobby-card:hover .contenido-oculto { bottom: 20px; }
+}
+
+/* =========================================================
+   MOBILE REDESIGN — reemplaza TODO el bloque
+   @media screen and (max-width: 767px) { ... }
+   en tu styles.css. El resto del archivo no cambia.
+========================================================= */
+
+@media screen and (max-width: 767px) {
+
+  /* ── BASE ── */
+  body { overflow-x: hidden; }
+  h2 { font-size: clamp(1.8rem, 7vw, 2.2rem) !important; }
+  h3 { font-size: 1.5rem !important; }
+
+  /* ── NAVBAR ── */
+  .navbar { padding: 12px 16px; }
+  .navbar .logo { font-size: 16px; }
+  .navbar-collapse {
+    background: #080808;
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+    border-top: 1px solid rgba(177,15,46,0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .navbar-nav { text-align: center; padding: 0.5rem 0; }
+  .navbar #navbarNav .nav-item a {
+    font-size: 1.3rem;
+    padding: 0.6rem 0;
+    display: block;
+  }
+  .btnDescargar {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem !important;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 0 10px 0 10px;
+  }
+
+  /* ── WAVES EN MÓVIL ── */
+  .wave-divider svg { height: 35px; }
+
+  /* ── HERO ── */
+  #hero {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100svh;
+    padding-top: 70px;
+    padding-bottom: 0;
+    text-align: center;
+  }
+
+  /* Ocultar los h1 absolutos del desktop */
+  #hero .nombre,
+  #hero .titulo-encima { display: none; }
+
+  /* Imagen centrada */
+  #hero .hero-img-wrapper {
+    position: relative;
+    z-index: 2;
+    width: 75%;
+    max-width: 260px;
+    margin: 0 auto;
+    order: 2;
+  }
+  #hero .hero-img-wrapper img { max-height: 50vh; }
+  #hero .hero-img-wrapper::after { height: 25%; }
+
+  /* Bloque de texto encima de la imagen */
+  #hero::before {
+    content: '';
+    display: none;
+  }
+
+  /* Nombre + rol como texto estático sobre el hero */
+  #hero-mobile-text {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    padding: 0 20px;
+    order: 1;
+    margin-bottom: 8px;
+  }
+
+  /* Chip "disponible" */
+  .hero-available-tag {
+    display: inline-block;
+    background: #1a0508;
+    border: 1px solid rgba(177,15,46,0.4);
+    color: #b10f2e;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .hero-mobile-name {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin: 0 0 4px;
+  }
+  .hero-mobile-name span { color: #b10f2e; }
+
+  .hero-mobile-role {
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 4px;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+
+  /* Botones del hero en móvil */
+  .hero-mobile-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 16px 0 0;
+    order: 3;
+    position: relative;
+    z-index: 3;
+  }
+  .hero-mobile-btns .btn-hero-primary {
+    background: #b10f2e;
+    color: #fff;
+    border: none;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: none;
+  }
+  .hero-mobile-btns .btn-hero-secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #333;
+    padding: 11px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: none;
+  }
+
+  /* ── SOBRE MÍ ── */
+  #sobre-mi {
+    padding: 40px 20px !important;
+    text-align: center;
+  }
+  #sobre-mi .row { flex-direction: column; }
+  #sobre-mi h4 { font-size: 0.85rem; letter-spacing: 3px; color: #b10f2e; }
+  #sobre-mi h3 { font-size: 1.8rem !important; margin-bottom: 12px; }
+  #sobre-mi p { font-size: 0.9rem; max-width: 100%; color: #999; line-height: 1.7; }
+
+  /* Ocultar foto duplicada en sobre mi */
+  #sobre-mi .col-md-6:last-child { display: none; }
+
+  .redes-sociales-container .list-unstyled {
+    justify-content: center !important;
+    margin-top: 20px;
+  }
+  .redes-sociales-container .btn-redes {
+    min-width: 120px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+  }
+
+  /* ── PERFIL PROFESIONAL ── */
+  #perfil-profesional {
+    padding: 40px 16px !important;
+    background-color: #0a0a0a;
+  }
+  .fondo-perfil { display: none; }
+  .cabecera-perfil { padding: 0; text-align: center; margin-bottom: 24px !important; }
+  .titulo-seccion { font-size: 1.8rem !important; text-align: center; margin: 0 0 12px; }
+  .descripcion { font-size: 0.9rem; text-align: center; color: #999; }
+  .btn-contacto { width: 100%; padding: 13px; font-size: 1rem; border-radius: 8px; }
+
+  /* Tarjetas en grid 2 columnas compacto */
+  .tarjetas-container { margin-top: 8px !important; }
+  .tarjetas-container .col-md-6 { padding: 6px !important; }
+
+  .habilidades-tarjeta {
+    max-width: 100%;
+    height: auto !important;
+    min-height: auto !important;
+    margin: 0;
+    border-radius: 10px;
+    padding: 14px !important;
+    transition: none;
+  }
+  .habilidades-tarjeta .card-body {
+    justify-content: flex-start;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  /* Mostrar icono siempre en móvil */
+  .habilidades-tarjeta .icono {
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 1.4rem !important;
+    color: #b10f2e;
+    margin: 0 !important;
+    flex-shrink: 0;
+  }
+  .habilidades-tarjeta .card-title {
+    font-size: 0.8rem !important;
+    text-align: left;
+    margin: 0 !important;
+    line-height: 1.2;
+  }
+  /* Ocultar lista en móvil — demasiado contenido */
+  .habilidades-tarjeta .detalles { display: none !important; }
+  .habilidades-tarjeta:hover {
+    transform: none;
+    height: auto !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* ── HABILIDADES (barras) ── */
+  #habilidades { padding: 40px 16px !important; }
+  .titulo-seccion-centro { font-size: 1.5rem !important; }
+  .descripcion-centro {
+    font-size: 0.9rem !important;
+    padding: 0 0 30px !important;
+    color: #888;
+  }
+  #habilidades .row { flex-direction: column-reverse; }
+  #habilidades .col-lg-5 { width: 100% !important; max-width: 100% !important; }
+
+  .etiquetas-container {
+    justify-content: center;
+    gap: 6px;
+    margin: 0 0 20px;
+    max-width: 100%;
+  }
+  .etiquetas-container button {
+    padding: 7px 16px;
+    font-size: 13px;
+    flex: 0 1 auto;
+    min-width: auto;
+    border-radius: 20px;
+  }
+
+  /* ── PORTAFOLIO ── */
+  #portafolio {
+    padding: 40px 0 40px !important;
+    background-color: #100508;
+  }
+  #portafolio h2 {
+    padding: 0 16px 24px !important;
+    font-size: 1.5rem !important;
+    text-align: left;
+  }
+
+  /* Ocultar la galería de lista del desktop */
+  #contenedor-proyectos .proyecto { display: none !important; }
+
+  /* Grid de cards móvil generado por JS */
+  #proyectos-mobile {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 16px;
+  }
+
+  .proj-card-mobile {
+    background: #1a0508;
+    border: 1px solid rgba(177,15,46,0.2);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .proj-card-mobile-img {
+    height: 110px;
+    background: linear-gradient(135deg, #2a0a10, #1a0508);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
     position: relative;
-}
-
-/* Efecto Hover en Botones */
-.social-btn:hover {
-    background: var(--color-accent);
-    color: #fff;
-    transform: translateY(-5px); /* Flota */
-    box-shadow: 0 0 20px rgba(177, 15, 46, 0.5); /* Resplandor rojo */
-}
-
-/* Tooltip (Texto que aparece arriba al pasar el mouse) */
-.social-btn .tooltip {
+    overflow: hidden;
+  }
+  .proj-card-mobile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+  .proj-card-mobile-num {
     position: absolute;
-    top: -40px;
-    background: #fff;
-    color: #000;
-    font-size: 0.8rem;
-    padding: 5px 10px;
+    font-size: 52px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    line-height: 1;
+  }
+  .proj-card-mobile-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    background: #b10f2e;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    padding: 3px 8px;
     border-radius: 4px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    font-weight: bold;
-    white-space: nowrap;
-}
-/* Triangulito del tooltip */
-.social-btn .tooltip::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #fff;
-}
-
-.social-btn:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-    top: -50px; /* Sube un poco */
-}
-
-/* 3. LÍNEA Y COPYRIGHT */
-
-
-.copyright {
-    color: #666;
-    font-size: 0.9rem;
-    margin: 0;
-    text-align: center;
-}
-
-.back-to-top {
+    text-transform: uppercase;
+  }
+  .proj-card-mobile-body { padding: 14px 16px; }
+  .proj-card-mobile-title {
+    font-size: 15px;
+    font-weight: 700;
     color: #fff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
+    margin-bottom: 3px;
+  }
+  .proj-card-mobile-cat {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  .proj-card-mobile-footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
+  }
+  .proj-card-mobile-tech {
+    font-size: 10px;
+    color: #b10f2e;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .proj-card-mobile-link {
+    background: #b10f2e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: none;
+  }
+
+  .btn-ver-mas-container { padding: 20px 16px 0; }
+  .btn-ver-mas { width: 100%; padding: 13px; font-size: 0.95rem; border-radius: 8px; }
+
+  /* ── ESTUDIOS ── */
+  #mis-estudios { padding: 40px 16px !important; }
+  #mis-estudios h2 { margin-bottom: 24px; font-size: 1.5rem !important; }
+
+  .tarjeta-estudio {
+    flex-direction: column;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(177,15,46,0.2);
+  }
+  .lado-anio {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 16px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: #1a0508;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .lado-anio h3 {
+    font-size: 2rem !important;
+    color: #b10f2e;
+    font-weight: 900;
+  }
+  .indicador {
+    opacity: 1;
+    color: #555;
+    font-size: 0.75rem;
+  }
+  .lado-info {
+    flex: 1;
+    width: 100%;
+    background: transparent;
+    opacity: 1 !important;
+    padding: 0;
+  }
+  .lado-info .contenido {
+    padding: 16px;
+    text-align: left;
+    transform: none !important;
+    width: 100%;
+  }
+  .lado-info h3 { font-size: 1rem !important; color: #fff; }
+  .lado-info h4 { font-size: 0.85rem !important; color: #b10f2e; opacity: 1; margin-bottom: 6px; }
+  .lado-info p { font-size: 0.82rem; color: #777; }
+
+  .tarjeta-estudio.active .lado-anio { background: #1a1a1a; }
+
+  /* ── EXPERIENCIA ── */
+  #experiencia { padding: 40px 16px !important; background-color: #0a0a0a; }
+  .experiencia-subtitulo { text-align: left; font-size: 0.8rem; }
+  .experiencia-titulo {
+    font-size: 1.4rem !important;
+    text-align: left;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .experiencia-titulo.titulo-animado { opacity: 1; transform: none; }
+
+  /* Ocultar columna izquierda del desktop y mostrar solo timeline */
+  #experiencia .col-lg-5 { display: none; }
+  #experiencia .col-lg-7 { width: 100% !important; max-width: 100% !important; }
+
+  /* Header de experiencia en móvil */
+  #experiencia-mobile-header {
+    margin-bottom: 24px;
+  }
+  #experiencia-mobile-header .exp-sub {
+    font-size: 0.75rem;
+    color: #b10f2e;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  #experiencia-mobile-header .exp-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+  }
+  #experiencia-mobile-header .exp-title span { color: #b10f2e; }
+
+  .timeline { padding-left: 12px; }
+  .timeline::before { left: 28px; background: rgba(177,15,46,0.2); }
+  .timeline-dot {
+    left: 16px;
+    width: 16px;
+    height: 16px;
+    border-color: #b10f2e33;
+  }
+  .timeline-content { padding-left: 44px; }
+  .timeline-content h4 { font-size: 1rem !important; }
+  .timeline-content .empresa { font-size: 0.85rem; color: #b10f2e; }
+  .timeline-content .fecha { font-size: 0.75rem; }
+  .descripcion { font-size: 0.82rem; }
+  .icono-toggle { font-size: 1rem; }
+
+  /* ── HOBBIES ── */
+  #hobbies { padding: 40px 16px !important; background-color: #0f0a0f; }
+  #hobbies h2 { font-size: 1.5rem !important; margin-bottom: 20px; }
+
+  .hobby-card {
+    height: 90px;
+    border-radius: 10px;
+    background: #111;
+  }
+  .icono-hobby { font-size: 1.6rem; margin-bottom: 5px; }
+  .titulo-hobby { font-size: 0.7rem; letter-spacing: 1px; }
+  .contenido-oculto { display: none; }
+
+  /* ── FOOTER ── */
+  #footer-premium { padding: 32px 16px 20px !important; }
+  .nombre-gigante { font-size: 1.6rem !important; }
+  .frase-cierre { font-size: 0.8rem; letter-spacing: 1px; }
+  .social-btn { width: 42px; height: 42px; font-size: 1.1rem; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; margin-top: 16px; }
+  .back-to-top { justify-content: center; }
+  .copyright { font-size: 0.8rem; margin-bottom: 8px; }
 }
 
-.back-to-top:hover {
-    color: var(--color-accent);
-}
-/* =========================================================
-   10. RESPONSIVE (ADAPTABLE A DISPOSITIVOS)
-========================================================= */
-
-/* =========================================================
-   MEDIA QUERIES - DISEÑO RESPONSIVE PROFESIONAL
-   Adaptaciones para Tablets y Móviles
-========================================================= */
-
-/* --- AJUSTES BASE PARA MÓVILES Y TABLETS --- */
-@media screen and (max-width: 991px) {
-    /* Navbar: Mejora la usabilidad del menú desplegable en táctil */
-    .navbar-collapse {
-        background: var(--color-bg);
-        padding: 1.5rem;
-        border-radius: 0 0 12px 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        border-top: 1px solid rgba(177, 15, 46, 0.3);
-        max-height: 80vh;
-        overflow-y: auto;
-    }
-
-    .navbar-nav {
-        text-align: center;
-        padding: 1rem 0;
-    }
-
-    .navbar #navbarNav .nav-item a {
-        font-size: 1.5rem; /* Links más grandes para táctil */
-        padding: 0.75rem 0;
-        display: block;
-    }
-
-    .btnDescargar {
-        width: 100%;
-        text-align: center;
-        margin-top: 1rem !important;
-        padding: 15px 25px;
-        font-size: 1.2rem;
-    }
-
-    /* Hero: Reorganizar y reducir */
-    #hero {
-        flex-direction: column;
-        justify-content: flex-start;
-        min-height: 90vh;
-        padding-top: 80px;
-    }
-
-    #hero h1 {
-        font-size: clamp(2.5rem, 10vw, 4.5rem);
-        position: relative;
-        top: auto;
-        transform: none;
-        margin: 0.5rem 0;
-    }
-
-    #hero .nombre { 
-        order: 1; 
-        transform: none;
-        margin-bottom: -0.5rem; /* Ajuste para superposición controlada */
-    }
-    
-    #hero .hero-img-wrapper { 
-        order: 2; 
-        max-width: 70%;
-        margin: 0 auto;
-    }
-
-    #hero .titulo-encima { 
-        order: 3; 
-        transform: none;
-        margin-top: -1rem;
-    }
-
-    /* Perfil Profesional: Reducir el efecto de superposición de tarjetas */
-    .habilidades-tarjeta {
-        max-width: 100%;
-        height: auto;
-        min-height: 200px;
-        margin-bottom: 0; /* Reset del margen negativo */
-    }
-
-    .habilidades-tarjeta:hover {
-        height: auto;
-        min-height: 350px;
-        margin-bottom: 0; /* Eliminar el margen negativo en móvil */
-        transform: translateY(-5px);
-    }
-}
-
-/* --- TABLETS (Pantallas entre 768px y 991px) --- */
-@media screen and (min-width: 768px) and (max-width: 991px) {
-    
-    /* Hero */
-    #hero .nombre { margin-bottom: -1rem; }
-    #hero .titulo-encima { margin-top: -1.5rem; }
-
-    /* Grid de tarjetas (Habilidades y otras) */
-    .row.g-4 {
-        --bs-gutter-y: 2rem;
-    }
-
-    /* Estudios: Ajustar altura */
-    .tarjeta-estudio {
-        height: 220px;
-    }
-    
-    .lado-anio h3 {
-        font-size: 3.5rem;
-    }
-
-    /* Experiencia */
-    .timeline-content h4 {
-        font-size: 1.3rem;
-    }
-
-    /* Hobbies */
-    .hobby-card {
-        height: 150px;
-    }
-    
-    .icono-hobby {
-        font-size: 2.5rem;
-    }
-    
-    .hobby-card:hover .contenido-oculto {
-        bottom: 20px;
-    }
-}
-
-/* --- MÓVILES (Pantallas hasta 767px) --- */
-@media screen and (max-width: 767px) {
-
-    /* TIPOGRAFÍA: Reducción general */
-    h2 {
-        font-size: clamp(2rem, 8vw, 2.5rem) !important;
-    }
-    
-    h3 {
-        font-size: 1.8rem !important;
-    }
-
-    /* ESPACIADOS: Reducción de padding */
-    #sobre-mi, #perfil-profesional, #habilidades, #portafolio, 
-    #mis-estudios, #experiencia, #hobbies, #footer-premium {
-        padding: 60px 0 !important;
-    }
-
-    /* HERO - Mobile */
-    #hero {
-        min-height: 85vh;
-        padding-top: 70px;
-        padding-bottom: 30px;
-    }
-    
-    #hero .hero-img-wrapper {
-        max-width: 85%;
-    }
-    
-    #hero .hero-img-wrapper img {
-        max-height: 45vh;
-    }
-    
-    #hero h1 {
-        font-size: clamp(2rem, 12vw, 3rem);
-        line-height: 1;
-    }
-    
-    #hero .nombre { 
-        margin-bottom: 0.5rem; 
-    }
-    #hero .titulo-encima { 
-        margin-top: 0.5rem; 
-    }
-
-    #hero .transparente {
-        -webkit-text-stroke: 0.5px rgba(177, 15, 46, 0.8);
-    }
-
-    /* SOBRE MÍ - Mobile */
-    #sobre-mi h3 {
-        font-size: 2.5rem;
-    }
-
-    #sobre-mi p {
-        font-size: 1rem;
-        max-width: 100%;
-    }
-
-    .redes-sociales-container .btn-redes {
-        min-width: 120px;
-        padding: 12px 15px;
-        font-size: 0.95rem;
-    }
-
-    .img-container-sobremi {
-        max-width: 280px;
-    }
-    
-    /* Eliminar el degradado inferior en móvil para que la foto se vea completa */
-    .img-container-sobremi::after {
-        height: 15%; /* Mucho más sutil */
-        background: linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%);
-    }
-
-    /* PERFIL PROFESIONAL - Mobile */
-    .titulo-seccion {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-
-    .cabecera-perfil {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .descripcion {
-        font-size: 1rem;
-        text-align: center;
-    }
-
-    .btn-contacto {
-        width: 100%;
-        padding: 15px;
-        font-size: 1.1rem;
-    }
-
-    /* TARJETAS DE HABILIDADES (Perfil) - Mobile Friendly */
-    .habilidades-tarjeta {
-        min-height: auto;
-        height: auto;
-        padding: 1rem;
-        transition: all 0.3s ease;
-    }
-
-    .habilidades-tarjeta .card-body {
-        justify-content: flex-start;
-    }
-
-    .habilidades-tarjeta .icono,
-    .habilidades-tarjeta .detalles {
-        opacity: 1;
-        height: auto;
-        overflow: visible;
-    }
-
-    .habilidades-tarjeta .icono {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .habilidades-tarjeta .card-title {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .habilidades-tarjeta .detalles {
-        margin-top: 0.5rem;
-        padding-left: 0;
-    }
-    
-    .habilidades-tarjeta .detalles li {
-        font-size: 0.95rem;
-        padding-left: 15px;
-        margin-bottom: 3px;
-        text-align: left;
-    }
-
-    /* Eliminar el hover complejo que no funciona bien en táctil */
-    .habilidades-tarjeta:hover {
-        transform: translateY(-3px);
-        height: auto;
-        margin-bottom: 0;
-    }
-
-    /* HABILIDADES (Barras y Botones) - Mobile */
-    .etiquetas-container {
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .etiquetas-container button {
-        padding: 8px 20px;
-        font-size: 16px;
-        flex: 1 1 auto;
-        min-width: 120px;
-    }
-
-    .descripcion-centro {
-        font-size: 1.1rem;
-        padding: 0 15px 30px 15px;
-    }
-
-    /* PORTAFOLIO - Mobile */
-    #portafolio h2 {
-        padding-bottom: 30px;
-    }
-
-    .proyecto {
-        padding: 1.5rem 1rem;
-    }
-
-    .proyecto .d-flex {
-        flex-direction: column;
-        align-items: flex-start !important;
-    }
-
-    .proyecto .numero {
-        font-size: 2rem;
-        opacity: 0.3;
-    }
-
-    .proyecto h3 {
-        font-size: 1.6rem;
-        margin-top: 0.25rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .proyecto p {
-        font-size: 0.95rem;
-        margin-bottom: 1rem;
-    }
-
-    .proyecto .link {
-        padding-right: 0;
-        width: 100%;
-    }
-
-    .proyecto a {
-        display: inline-block;
-        background: rgba(177, 15, 46, 0.2);
-        padding: 0.5rem 1.5rem;
-        border-radius: 30px;
-        border: 1px solid var(--color-accent);
-    }
-
-    .proyecto a::before {
-        display: none; /* Quitar el círculo negro en móvil */
-    }
-
-    .proyecto:hover a {
-        background: var(--color-accent);
-        color: #fff;
-        padding: 0.5rem 1.5rem;
-    }
-
-    .btn-ver-mas {
-        width: 90%;
-        padding: 15px;
-        font-size: 1.1rem;
-    }
-
-    /* ESTUDIOS - Mobile */
-    .tarjeta-estudio {
-        flex-direction: column;
-        height: auto;
-        border-radius: 12px;
-    }
-
-    .lado-anio {
-        flex: 0 0 auto;
-        width: 100%;
-        padding: 20px 0;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        background: #2a0009; /* Un rojo más oscuro */
-    }
-
-    .lado-anio h3 {
-        font-size: 2.8rem;
-        color: rgba(255, 255, 255, 0.5);
-    }
-
-    .indicador {
-        opacity: 1;
-        color: #fff;
-    }
-
-    .lado-info {
-        flex: 1;
-        width: 100%;
-        background: var(--color-accent);
-        padding: 0;
-    }
-
-    .lado-info .contenido {
-        padding: 25px 20px;
-        text-align: center;
-        transform: none;
-        width: 100%;
-    }
-
-    /* Interacción táctil para estudios */
-    .tarjeta-estudio.active .lado-anio {
-        background: #1a1a1a;
-    }
-    .tarjeta-estudio.active .lado-anio h3 {
-        color: #fff;
-        font-size: 2.5rem;
-    }
-    .tarjeta-estudio.active .indicador {
-        opacity: 0;
-    }
-
-    /* EXPERIENCIA - Mobile */
-    #experiencia {
-        padding: 60px 0;
-    }
-
-    .experiencia-titulo {
-        font-size: 2rem;
-        text-align: center;
-    }
-
-    .experiencia-subtitulo {
-        text-align: center;
-    }
-
-    .timeline::before {
-        left: 25px;
-    }
-
-    .timeline-dot {
-        left: 16px;
-        width: 18px;
-        height: 18px;
-    }
-
-    .timeline-content {
-        padding-left: 50px;
-    }
-
-    .encabezado-item {
-        flex-direction: row; /* Mantener en fila para el icono */
-        flex-wrap: wrap;
-    }
-
-    .timeline-content h4 {
-        font-size: 1.2rem;
-        width: calc(100% - 30px); /* Espacio para el icono */
-    }
-
-    .timeline-content .empresa {
-        display: inline;
-        font-size: 0.9rem;
-    }
-
-    .icono-toggle {
-        font-size: 1.2rem;
-    }
-
-    .descripcion {
-        font-size: 0.95rem;
-        padding-left: 10px;
-    }
-
-    /* HOBBIES - Mobile */
-    .hobby-card {
-        height: 140px;
-    }
-
-    .icono-hobby {
-        font-size: 2.2rem;
-    }
-
-    .titulo-hobby {
-        font-size: 0.8rem;
-    }
-
-    .detalle {
-        font-size: 0.85rem;
-    }
-
-    /* Adaptar hover a un tap-friendly state */
-    .hobby-card:active {
-        border-color: var(--color-accent);
-        background: #1a0509;
-        transform: scale(0.98);
-    }
-    .hobby-card:active .contenido-visible {
-        top: 35%;
-    }
-    .hobby-card:active .icono-hobby {
-        color: var(--color-accent);
-        transform: scale(0.9);
-    }
-    .hobby-card:active .contenido-oculto {
-        bottom: 25px;
-        opacity: 1;
-    }
-
-    /* FOOTER - Mobile */
-    #footer-premium {
-        padding: 50px 0 20px 0 !important;
-    }
-
-    .nombre-gigante {
-        font-size: 2rem;
-        line-height: 1.2;
-    }
-
-    .frase-cierre {
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-    }
-
-    .social-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 1.2rem;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-
-    .back-to-top {
-        justify-content: center;
-        font-size: 1rem;
-    }
-}
-
-/* --- MÓVILES PEQUEÑOS (hasta 400px) --- */
+/* ── MÓVILES PEQUEÑOS ── */
 @media screen and (max-width: 400px) {
-    #hero h1 {
-        font-size: clamp(1.8rem, 10vw, 2.5rem);
-    }
-
-    #hero .hero-img-wrapper {
-        max-width: 95%;
-    }
-
-    .nombre-gigante {
-        font-size: 1.8rem;
-    }
-
-    .etiquetas-container button {
-        min-width: 100%;
-    }
+  #hero .hero-img-wrapper { width: 90%; }
+  .hero-mobile-name { font-size: 2rem; }
+  .nombre-gigante { font-size: 1.3rem !important; }
+  .etiquetas-container button { font-size: 12px; padding: 6px 12px; }
 }
 
-/* --- ORIENTACIÓN PAISAJE EN MÓVILES --- */
+/* ── LANDSCAPE EN MÓVIL ── */
 @media screen and (max-width: 850px) and (orientation: landscape) {
-    #hero {
-        min-height: 120vh;
-        padding-top: 100px;
-    }
+  #hero { min-height: 100svh; padding-top: 60px; }
+  #hero .hero-img-wrapper img { max-height: 55vh; }
+  .navbar-collapse { max-height: 70vh; overflow-y: auto; }
+}
 
-    #hero .hero-img-wrapper img {
-        max-height: 60vh;
-    }
+@media screen and (max-width: 400px) {
+  #hero h1 { font-size: clamp(1.8rem, 10vw, 2.5rem); }
+  #hero .hero-img-wrapper { max-width: 95%; }
+  .nombre-gigante { font-size: 1.8rem; }
+  .etiquetas-container button { min-width: 100%; }
+}
 
-    .hero-img-wrapper::after {
-        height: 20%;
-    }
-
-    .navbar-collapse {
-        max-height: 80vh;
-        overflow-y: auto;
-    }
+@media screen and (max-width: 850px) and (orientation: landscape) {
+  #hero { min-height: 120vh; padding-top: 100px; }
+  #hero .hero-img-wrapper img { max-height: 60vh; }
+  .hero-img-wrapper::after { height: 20%; }
+  .navbar-collapse { max-height: 80vh; overflow-y: auto; }
 }
