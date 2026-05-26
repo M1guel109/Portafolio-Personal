@@ -398,25 +398,30 @@ function renderizarGaleria(proyectosData, contenedor) {
 }
 
 // =========================================================
-// TÍTULO ANIMADO DE EXPERIENCIA
+// EXPERIENCIA — título animado + acordeón
 // =========================================================
 function initExperiencia() {
   const titulo = document.querySelector(".titulo-animado");
-  if (!titulo) return;
+  if (titulo) {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) { titulo.classList.add("visible"); obs.unobserve(titulo); }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    obs.observe(titulo);
+  }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          titulo.classList.add("visible");
-          observer.unobserve(titulo);
-        }
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  observer.observe(titulo);
+  const items = document.querySelectorAll(".timeline-item");
+  items.forEach((item) => {
+    item.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+      items.forEach((el) => el.classList.remove("active"));
+      if (!isActive) item.classList.add("active");
+    });
+  });
 }
 
 // =========================================================

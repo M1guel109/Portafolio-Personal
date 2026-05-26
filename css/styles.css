@@ -638,7 +638,15 @@ body {
 }
 
 .barras-container { width: 100%; }
-.barras-container .skill-item { margin-bottom: 20px; }
+.barras-container .skill-item {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+  transition: border-color 0.3s;
+}
+.barras-container .skill-item:hover { border-color: rgba(177,15,46,0.35); }
 
 .skill-info {
   display: flex;
@@ -657,9 +665,9 @@ body {
 }
 
 .progress {
-  background-color: #222;
+  background: rgba(255,255,255,0.06);
   border-radius: 8px;
-  height: 10px;
+  height: 7px;
   position: relative;
   overflow: hidden;
 }
@@ -667,15 +675,26 @@ body {
 .progress-bar {
   width: 0;
   height: 100%;
-  background: var(--color-accent);
+  background: linear-gradient(90deg, #7a0820 0%, #b10f2e 65%, #d4143a 100%);
+  box-shadow: 0 0 12px rgba(177, 15, 46, 0.6);
   position: relative;
   transition: width 1.5s ease-in-out;
-  color: #fff;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  padding-right: 10px;
-  border-radius: 5px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60px; bottom: 0;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: barShimmer 2.5s ease infinite;
+}
+
+@keyframes barShimmer {
+  0%   { left: -60px; }
+  100% { left: 110%; }
 }
 
 .fade-out { opacity: 0; transform: scale(0.9); transition: all 0.3s ease; }
@@ -1881,8 +1900,31 @@ body {
   }
   /* Lista oculta por defecto en móvil, visible al hacer tap */
   .habilidades-tarjeta .detalles { display: none !important; }
-  .habilidades-tarjeta.active .detalles { display: block !important; margin-top: 8px; }
   .habilidades-tarjeta.active { border-color: rgba(177,15,46,0.5) !important; }
+  .habilidades-tarjeta.active .card-body {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+  }
+  .habilidades-tarjeta.active .icono { margin-bottom: 2px !important; }
+  .habilidades-tarjeta.active .card-title { margin: 0 !important; }
+  .habilidades-tarjeta.active .detalles {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+    list-style: none;
+  }
+  .habilidades-tarjeta.active .detalles li {
+    background: rgba(177,15,46,0.15);
+    border: 1px solid rgba(177,15,46,0.3);
+    color: #ccc;
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .habilidades-tarjeta.active .detalles li::before { display: none !important; }
   .habilidades-tarjeta:hover, .habilidades-tarjeta.active {
     transform: none;
     height: auto !important;
@@ -1937,8 +1979,8 @@ body {
   }
 
   .proj-card-mobile {
-    background: #1a0508;
-    border: 1px solid rgba(177,15,46,0.2);
+    background: #111;
+    border: 1px solid rgba(255,255,255,0.07);
     border-radius: 14px;
     overflow: hidden;
   }
@@ -2143,6 +2185,41 @@ body {
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; margin-top: 16px; }
   .back-to-top { justify-content: center; }
   .copyright { font-size: 0.8rem; margin-bottom: 8px; }
+
+  /* ── NEUTRALIZAR :hover de desktop en touch ── */
+  /* Estudios: :hover no debe activar el estado expandido */
+  .tarjeta-estudio:hover:not(.active) { box-shadow: none !important; }
+  .tarjeta-estudio:hover:not(.active) .lado-anio {
+    flex: 0 0 auto !important;
+    background: #1a0508 !important;
+  }
+  .tarjeta-estudio:hover:not(.active) .lado-anio h3 {
+    font-size: 2rem !important;
+    color: #b10f2e !important;
+  }
+  .tarjeta-estudio:hover:not(.active) .indicador { opacity: 1 !important; }
+  .tarjeta-estudio:hover:not(.active) .lado-info {
+    max-height: 0 !important;
+    opacity: 0 !important;
+  }
+
+  /* Experiencia: :hover no debe expandir los items */
+  .timeline-item:hover:not(.active) .timeline-dot {
+    background: var(--color-bg) !important;
+    border-color: #666 !important;
+    box-shadow: 0 0 0 5px var(--color-bg) !important;
+    transform: none !important;
+  }
+  .timeline-item:hover:not(.active) h4 { color: #fff !important; }
+  .timeline-item:hover:not(.active) .icono-toggle {
+    transform: none !important;
+    color: #666 !important;
+  }
+  .timeline-item:hover:not(.active) .descripcion-wrapper {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+  }
 }
 
 /* ── MÓVILES PEQUEÑOS ── */
