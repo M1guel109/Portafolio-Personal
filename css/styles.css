@@ -49,6 +49,10 @@ html {
   scroll-behavior: smooth;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);
@@ -911,6 +915,7 @@ body {
   opacity: 0.8;
   transition: opacity 0.3s;
 }
+.indicador i { display: inline-block; transition: transform 0.3s ease; }
 
 .lado-info {
   flex: 0;
@@ -1874,9 +1879,11 @@ body {
     margin: 0 !important;
     line-height: 1.2;
   }
-  /* Ocultar lista en móvil — demasiado contenido */
+  /* Lista oculta por defecto en móvil, visible al hacer tap */
   .habilidades-tarjeta .detalles { display: none !important; }
-  .habilidades-tarjeta:hover {
+  .habilidades-tarjeta.active .detalles { display: block !important; margin-top: 8px; }
+  .habilidades-tarjeta.active { border-color: rgba(177,15,46,0.5) !important; }
+  .habilidades-tarjeta:hover, .habilidades-tarjeta.active {
     transform: none;
     height: auto !important;
     margin-bottom: 0 !important;
@@ -2039,10 +2046,13 @@ body {
     font-size: 0.75rem;
   }
   .lado-info {
-    flex: 1;
+    flex: 0 0 auto;
     width: 100%;
     background: transparent;
-    opacity: 1 !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.38s ease, opacity 0.3s ease, padding 0.3s ease;
     padding: 0;
   }
   .lado-info .contenido {
@@ -2055,6 +2065,11 @@ body {
   .lado-info h4 { font-size: 0.85rem !important; color: #b10f2e; opacity: 1; margin-bottom: 6px; }
   .lado-info p { font-size: 0.82rem; color: #777; }
 
+  .tarjeta-estudio.active .lado-info {
+    max-height: 200px;
+    opacity: 1;
+  }
+  .tarjeta-estudio.active .indicador i { transform: rotate(45deg); }
   .tarjeta-estudio.active .lado-anio { background: #1a1a1a; }
 
   /* ── EXPERIENCIA ── */
@@ -2527,6 +2542,6 @@ body {
   .contacto-form { padding: 20px 16px; border-radius: 12px; }
 
   /* En móvil el formulario va primero (más accionable) */
-  #contacto .row { flex-direction: column-reverse; }
+  #contacto > .container > .row { flex-direction: column-reverse; }
   #contacto .col-lg-5 { margin-top: 32px; }
 }

@@ -612,7 +612,7 @@ function setupHeroMobile() {
   btns.id = "hero-mobile-btns";
   btns.className = "hero-mobile-btns";
   btns.innerHTML = `
-    <a href="https://wa.me/573203270793?text=Hola%20Miguel,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte."
+    <a href="https://wa.me/573009002929?text=Hola%20Miguel,%20vi%20tu%20portafolio%20y%20me%20gustar%C3%ADa%20contactarte."
        target="_blank" rel="noopener noreferrer" class="btn-hero-primary">Contáctame</a>
     <a href="archivos/hoja-de-vida-Miguel-Lozano.pdf" download class="btn-hero-secondary">Ver CV</a>
   `;
